@@ -11,7 +11,7 @@ import java.io.InputStream;
 public final class MinecraftLanguageSetup {
     public static void setup(final GuizhanLibPlugin plugin) {
         final String minecraftVersion = "1." + PaperLib.getMinecraftVersion();
-        final String filename = "/minecraft-langs/" + minecraftVersion + "/zh_cn.json";
+        final String filename = "/minecraft-lang/" + minecraftVersion + "/zh_cn.json";
         final InputStream stream = plugin.getResource(filename);
 
         if (stream != null) {
