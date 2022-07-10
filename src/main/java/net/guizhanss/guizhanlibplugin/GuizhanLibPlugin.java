@@ -1,13 +1,16 @@
-package net.guizhanss.guizhanslimefunaddon;
+package net.guizhanss.guizhanlibplugin;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import net.guizhanss.guizhanlib.updater.GuizhanBuildsUpdater;
+import net.guizhanss.guizhanlibplugin.setup.MinecraftLanguageSetup;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class GuizhanSlimefunAddon extends JavaPlugin implements SlimefunAddon {
+import javax.annotation.Nonnull;
 
-    private static GuizhanSlimefunAddon instance;
+public final class GuizhanLibPlugin extends JavaPlugin implements SlimefunAddon {
+
+    private static GuizhanLibPlugin instance;
 
     @Override
     public void onEnable() {
@@ -15,6 +18,8 @@ public final class GuizhanSlimefunAddon extends JavaPlugin implements SlimefunAd
 
         setupMetrics();
         autoUpdate();
+
+        MinecraftLanguageSetup.setup(this);
     }
 
     @Override
@@ -23,27 +28,32 @@ public final class GuizhanSlimefunAddon extends JavaPlugin implements SlimefunAd
     }
 
     private void setupMetrics() {
-        new Metrics(this, 114514);
+        final Metrics metrics = new Metrics(this, 15713);
     }
 
     private void autoUpdate() {
         if (getConfig().getBoolean("auto-update") &&
             getDescription().getVersion().startsWith("Build")) {
-            new GuizhanBuildsUpdater(this, getFile(), "ybw0014", "GuizhanSlimefunAddon", "master", false).start();
+            new GuizhanBuildsUpdater(this, getFile(), "ybw0014", "GuizhanLibPlugin", "master", false).start();
         }
     }
 
     @Override
+    @Nonnull
     public JavaPlugin getJavaPlugin() {
         return this;
     }
 
     @Override
     public String getBugTrackerURL() {
-        return "https://github.com/ybw0014/GuizhanSlimefunAddon/issues";
+        return "https://github.com/ybw0014/GuizhanLibPlugin/issues";
     }
 
-    public static GuizhanSlimefunAddon getInstance() {
+    @Nonnull
+    public static GuizhanLibPlugin getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException("GuizhanLibPlugin is not loaded correctly.");
+        }
         return instance;
     }
 }
