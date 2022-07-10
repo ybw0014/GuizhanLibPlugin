@@ -6,6 +6,7 @@ import net.guizhanss.guizhanlib.minecraft.LanguageHelper;
 import net.guizhanss.guizhanlibplugin.GuizhanLibPlugin;
 
 import java.io.InputStream;
+import java.util.logging.Level;
 
 @UtilityClass
 public final class MinecraftLanguageSetup {
@@ -15,6 +16,7 @@ public final class MinecraftLanguageSetup {
         final InputStream stream = plugin.getResource(filename);
 
         if (stream != null) {
+            plugin.getLogger().log(Level.INFO, "Loading language file for Minecraft version " + minecraftVersion);
             LanguageHelper.loadFromStream(stream);
         } else {
             throw new UnsupportedOperationException("The language file for Minecraft version " + minecraftVersion + "is missing!");
