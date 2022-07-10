@@ -6,7 +6,7 @@
 
     <groupId>net.guizhanss</groupId>
     <artifactId>GuizhanLibPlugin</artifactId>
-    <version>UNOFFICIAL-1.0.0</version>
+    <version>UNOFFICIAL</version>
     <packaging>jar</packaging>
 
     <properties>
