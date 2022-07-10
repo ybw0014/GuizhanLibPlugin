@@ -1,1 +1,15 @@
+# Whether to enable auto update
+# 是否开启自动更新
 auto-update: true
+
+# The website used for auto update
+# 自动更新所使用的服务器
+# Available options: global, cn
+# 可用选项: global, cn
+
+# global - (Default) The website is deployed by Cloudflare in globe. https://builds.guizhanss.net/
+# global - （默认）使用 Cloudflare 部署到全球范围的站点. https://builds.guizhanss.net/
+# cn - The website is a mirror website deployed by Tencent Cloud in mainland China. https://builds.guizhanss.cn/
+# cn - 在中国大陆使用腾讯云搭建的镜像站点. https://builds.guizhanss.cn/
+updater-location: global
+
