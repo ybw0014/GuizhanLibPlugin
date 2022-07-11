@@ -13,13 +13,13 @@ public final class MinecraftLanguageSetup {
     public static void setup(final GuizhanLibPlugin plugin) {
         final String minecraftVersion = "1." + PaperLib.getMinecraftVersion();
         final String filename = "/minecraft-lang/" + minecraftVersion + "/zh_cn.json";
-        final InputStream stream = plugin.getResource(filename);
+        final InputStream stream = plugin.getClass().getResourceAsStream(filename);
 
         if (stream != null) {
             plugin.getLogger().log(Level.INFO, "Loading language file for Minecraft version " + minecraftVersion);
             LanguageHelper.loadFromStream(stream);
         } else {
-            throw new UnsupportedOperationException("The language file for Minecraft version " + minecraftVersion + "is missing!");
+            throw new UnsupportedOperationException("The language file for Minecraft version " + minecraftVersion + " is missing!");
         }
     }
 }

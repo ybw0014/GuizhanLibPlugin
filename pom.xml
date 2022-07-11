@@ -65,6 +65,12 @@
                                 <exclude>META-INF/*</exclude>
                             </excludes>
                         </filter>
+                        <filter>
+                            <artifact>net.guizhanss:*</artifact>
+                            <excludes>
+                                <exclude>minecraft-langs/**/zh_cn.json</exclude>
+                            </excludes>
+                        </filter>
                     </filters>
                 </configuration>
                 <executions>
@@ -82,7 +88,9 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>*</include>
+                    <include>*.yml</include>
+
+                    <include>minecraft-lang/*/zh_cn.json</include>
                 </includes>
             </resource>
         </resources>
