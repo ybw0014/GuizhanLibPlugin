@@ -1,8 +1,5 @@
 package net.guizhanss.guizhanlibplugin.updater;
 
-import net.guizhanss.guizhanlib.updater.GuizhanBuildsCNUpdater;
-import net.guizhanss.guizhanlib.updater.GuizhanBuildsUpdater;
-
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
@@ -10,7 +7,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
  *
  * @author ybw0014
  */
-public enum UpdaterLocation {
+enum UpdaterLocation {
     /**
      * Global deployment by Cloudflare.
      * https://builds.guizhanss.net/

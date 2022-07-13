@@ -3,7 +3,6 @@ package net.guizhanss.guizhanlibplugin;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import net.guizhanss.guizhanlibplugin.setup.MinecraftLanguageSetup;
 import net.guizhanss.guizhanlibplugin.updater.GuizhanBuildsUpdaterWrapper;
-import net.guizhanss.guizhanlibplugin.updater.UpdaterLocation;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,8 +18,7 @@ public final class GuizhanLibPlugin extends JavaPlugin implements SlimefunAddon 
 
         MinecraftLanguageSetup.setup(this);
 
-        final String updaterLocationCfg = getConfig().getString("updater-location", "GLOBAL");
-        final UpdaterLocation updaterLocation = UpdaterLocation.getLocation(updaterLocationCfg);
+        final String updaterLocation = getConfig().getString("updater-location", "GLOBAL");
         GuizhanBuildsUpdaterWrapper.setup(updaterLocation);
 
         setupMetrics();
