@@ -1,5 +1,6 @@
 package net.guizhanss.guizhanlibplugin.updater;
 
+import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
@@ -20,6 +21,7 @@ enum UpdaterLocation {
     CN;
 
     @ParametersAreNonnullByDefault
+    @Nonnull
     public static UpdaterLocation getLocation(String location) {
         try {
             return UpdaterLocation.valueOf(location.toUpperCase());

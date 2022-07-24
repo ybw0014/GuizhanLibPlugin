@@ -16,6 +16,8 @@ public final class GuizhanLibPlugin extends JavaPlugin implements SlimefunAddon 
     public void onEnable() {
         instance = this;
 
+        saveDefaultConfig();
+
         MinecraftLanguageSetup.setup(this);
 
         final String updaterLocation = getConfig().getString("updater-location", "GLOBAL");
