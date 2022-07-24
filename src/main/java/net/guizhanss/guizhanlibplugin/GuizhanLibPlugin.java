@@ -8,9 +8,29 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
 
+/**
+ * GuizhanLib plugin version.
+ *
+ * @author ybw0014
+ */
 public final class GuizhanLibPlugin extends JavaPlugin implements SlimefunAddon {
 
     private static GuizhanLibPlugin instance;
+
+    /**
+     * Get the instance of plugin.
+     *
+     * @return The instance of plugin
+     *
+     * @throws IllegalStateException When plugin is not enabled
+     */
+    @Nonnull
+    public static GuizhanLibPlugin getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException("GuizhanLibPlugin is not loaded correctly.");
+        }
+        return instance;
+    }
 
     @Override
     public void onEnable() {
@@ -52,13 +72,5 @@ public final class GuizhanLibPlugin extends JavaPlugin implements SlimefunAddon 
     @Override
     public String getBugTrackerURL() {
         return "https://github.com/ybw0014/GuizhanLibPlugin/issues";
-    }
-
-    @Nonnull
-    public static GuizhanLibPlugin getInstance() {
-        if (instance == null) {
-            throw new IllegalStateException("GuizhanLibPlugin is not loaded correctly.");
-        }
-        return instance;
     }
 }

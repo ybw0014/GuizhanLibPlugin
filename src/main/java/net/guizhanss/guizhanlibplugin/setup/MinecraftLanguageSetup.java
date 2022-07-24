@@ -9,8 +9,18 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.InputStream;
 import java.util.logging.Level;
 
+/**
+ * This setup the Guizhan-minecraft module, inject the language file with current minecraft version.
+ *
+ * @author ybw0014
+ */
 @UtilityClass
 public final class MinecraftLanguageSetup {
+    /**
+     * Set up the Guizhan-minecraft module.
+     *
+     * @param plugin The plugin instance
+     */
     @ParametersAreNonnullByDefault
     public static void setup(final GuizhanLibPlugin plugin) {
         final String minecraftVersion = "1." + PaperLib.getMinecraftVersion();
