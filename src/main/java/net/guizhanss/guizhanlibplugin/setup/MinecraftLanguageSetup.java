@@ -5,11 +5,13 @@ import lombok.experimental.UtilityClass;
 import net.guizhanss.guizhanlib.minecraft.LanguageHelper;
 import net.guizhanss.guizhanlibplugin.GuizhanLibPlugin;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.InputStream;
 import java.util.logging.Level;
 
 @UtilityClass
 public final class MinecraftLanguageSetup {
+    @ParametersAreNonnullByDefault
     public static void setup(final GuizhanLibPlugin plugin) {
         final String minecraftVersion = "1." + PaperLib.getMinecraftVersion();
         final String filename = "/minecraft-lang/" + minecraftVersion + "/zh_cn.json";

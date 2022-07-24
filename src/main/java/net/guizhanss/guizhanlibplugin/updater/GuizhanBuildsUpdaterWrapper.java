@@ -15,7 +15,7 @@ import java.io.File;
  *
  * @author ybw0014
  */
-public class GuizhanBuildsUpdaterWrapper {
+public final class GuizhanBuildsUpdaterWrapper {
     private static GuizhanBuildsUpdaterWrapper instance;
 
     private boolean isSetup = false;
