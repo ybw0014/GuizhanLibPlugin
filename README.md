@@ -10,6 +10,12 @@
 
 ## 如何使用
 
+### 对于服主
+
+将下载好的jar放入`plugins`目录，然后重启服务器即可。
+
+### 对于开发者
+
 将GuizhanLibPlugin添加为依赖项:
 
 [![Maven Central](https://img.shields.io/maven-central/v/net.guizhanss/GuizhanLibPlugin.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22net.guizhanss%22%20AND%20a:%22GuizhanLibPlugin%22)
