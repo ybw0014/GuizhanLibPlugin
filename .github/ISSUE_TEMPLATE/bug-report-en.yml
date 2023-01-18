@@ -22,8 +22,6 @@ body:
           required: true
         - label: You did not modify the jar file
           required: true
-        - label: You do not have CS-CoreLib installed
-          required: true
         - label: You searched existing issues, and could not find any existing bug report on this
           required: true
 
@@ -108,22 +106,9 @@ body:
         - 1.18.x
         - 1.17.x
         - 1.16.x
-        - 1.15.x
-        - 1.14.x
         - Older versions are not supported
     validations:
       required: true
-
-  - type: checkboxes
-    id: cscorelib-version
-    attributes:
-      label: CS-CoreLib Version
-      description: |
-        As of Jan 30 2021，Slimefun and addons don't need CS-CoreLib any more.
-        Keep CS-CoreLib in your server could cause problems.
-      options:
-        - label: I don't have CS-CoreLib installed
-          required: true
 
   - type: textarea
     id: slimefun-version

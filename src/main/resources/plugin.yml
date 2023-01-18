@@ -1,7 +1,7 @@
 name: GuizhanLibPlugin
 version: '${project.version}'
 main: net.guizhanss.guizhanlibplugin.GuizhanLibPlugin
-api-version: 1.14
+api-version: 1.16
 depend: [ Slimefun ]
 authors: [ ybw0014 ]
 description: A library for slimefun addon in Simplified Chinese
