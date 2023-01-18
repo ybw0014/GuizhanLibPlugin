@@ -8,6 +8,7 @@ import org.bstats.charts.SimplePie;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * GuizhanLib plugin version.
@@ -30,14 +31,18 @@ public final class GuizhanLibPlugin extends JavaPlugin implements SlimefunAddon 
     @Nonnull
     public static GuizhanLibPlugin getInstance() {
         if (instance == null) {
-            throw new IllegalStateException("GuizhanLibPlugin is not loaded correctly.");
+            throw new IllegalStateException("GuizhanLibPlugin is disabled or not loaded correctly.");
         }
         return instance;
     }
 
+    private static void setInstance(@Nullable GuizhanLibPlugin inst) {
+        instance = inst;
+    }
+
     @Override
     public void onEnable() {
-        instance = this;
+        setInstance(this);
 
         saveDefaultConfig();
 
@@ -53,7 +58,7 @@ public final class GuizhanLibPlugin extends JavaPlugin implements SlimefunAddon 
 
     @Override
     public void onDisable() {
-        instance = null;
+        setInstance(null);
     }
 
     private void setupMetrics() {
