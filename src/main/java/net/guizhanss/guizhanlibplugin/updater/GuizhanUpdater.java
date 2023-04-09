@@ -12,7 +12,7 @@ import java.io.File;
 /**
  * This is almost same wrapper with {@link GuizhanBuildsUpdaterWrapper}, but have a shorter name and have more options.
  * <p>
- * Call {@link #start(Plugin, File, String, String, String, boolean)} to create an updater.
+ * Call {@link #start(Plugin, File, String, String, String)} to create an updater.
  *
  * @author ybw0014
  */
