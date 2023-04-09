@@ -19,7 +19,8 @@ public final class MinecraftLanguageSetup {
     /**
      * Set up the Guizhan-minecraft module.
      *
-     * @param plugin The plugin instance
+     * @param plugin
+     *     The plugin instance
      */
     @ParametersAreNonnullByDefault
     public static void setup(final GuizhanLibPlugin plugin) {

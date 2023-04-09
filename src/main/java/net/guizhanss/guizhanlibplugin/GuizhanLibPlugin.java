@@ -3,6 +3,7 @@ package net.guizhanss.guizhanlibplugin;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import net.guizhanss.guizhanlibplugin.setup.MinecraftLanguageSetup;
 import net.guizhanss.guizhanlibplugin.updater.GuizhanBuildsUpdaterWrapper;
+import net.guizhanss.guizhanlibplugin.updater.GuizhanUpdater;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,7 +27,8 @@ public final class GuizhanLibPlugin extends JavaPlugin implements SlimefunAddon 
      *
      * @return The instance of plugin
      *
-     * @throws IllegalStateException When plugin is not enabled
+     * @throws IllegalStateException
+     *     When plugin is not enabled
      */
     @Nonnull
     public static GuizhanLibPlugin getInstance() {
@@ -50,6 +52,7 @@ public final class GuizhanLibPlugin extends JavaPlugin implements SlimefunAddon 
 
         final String updaterLocation = getConfig().getString("updater-location", "GLOBAL");
         GuizhanBuildsUpdaterWrapper.setup(updaterLocation);
+        GuizhanUpdater.setup(updaterLocation);
         autoUpdateEnabled = getConfig().getBoolean("auto-update", true);
 
         setupMetrics();
@@ -69,7 +72,7 @@ public final class GuizhanLibPlugin extends JavaPlugin implements SlimefunAddon 
 
     private void autoUpdate() {
         if (autoUpdateEnabled && getDescription().getVersion().startsWith("Build")) {
-            GuizhanBuildsUpdaterWrapper.start(this, getFile(), "ybw0014", "GuizhanLibPlugin", "master", false);
+            GuizhanUpdater.start(this, getFile(), "ybw0014", "GuizhanLibPlugin", "master");
         }
     }
 
