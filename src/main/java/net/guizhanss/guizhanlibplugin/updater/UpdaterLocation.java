@@ -11,12 +11,12 @@ import javax.annotation.ParametersAreNonnullByDefault;
 enum UpdaterLocation {
     /**
      * Global deployment by Cloudflare.
-     * https://builds.guizhanss.net/
+     * <a href="https://builds.guizhanss.net/">https://builds.guizhanss.net/</a>
      */
     GLOBAL,
     /**
      * Mainland China mirror by Tencent Cloud.
-     * https://builds.guizhanss.cn/
+     * <a href="https://builds.guizhanss.cn/">https://builds.guizhanss.cn/</a>
      */
     CN;
 

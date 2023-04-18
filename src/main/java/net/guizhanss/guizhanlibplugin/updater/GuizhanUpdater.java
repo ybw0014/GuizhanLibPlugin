@@ -61,7 +61,7 @@ public final class GuizhanUpdater {
         String githubRepo,
         String githubBranch
     ) {
-        start(plugin, file, githubUser, githubRepo, githubBranch, new UpdaterConfig());
+        start(plugin, file, githubUser, githubRepo, githubBranch, UpdaterConfig.DEFAULT);
     }
 
     /**
