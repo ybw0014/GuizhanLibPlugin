@@ -6,7 +6,7 @@
 
     <groupId>net.guizhanss</groupId>
     <artifactId>GuizhanLibPlugin</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
     <packaging>jar</packaging>
 
     <name>GuizhanLibPlugin</name>
@@ -276,7 +276,7 @@
         <dependency>
             <groupId>net.guizhanss</groupId>
             <artifactId>GuizhanLib-api</artifactId>
-            <version>1.2.1</version>
+            <version>1.2.2</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
