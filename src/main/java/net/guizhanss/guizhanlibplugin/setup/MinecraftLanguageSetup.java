@@ -36,12 +36,12 @@ public final class MinecraftLanguageSetup {
                 return;
             } else {
                 plugin.getLogger().log(Level.INFO, "The language file for Minecraft version 1." + mcVersion + "is " +
-                    "missing, finding the language file for previous version");
+                    "missing, finding the language file of previous version");
                 mcVersion--;
             }
         }
 
-        throw new UnsupportedOperationException("There is no available language file, you are using an unsupported " +
+        plugin.getLogger().log(Level.SEVERE, "There is no available language file, you are using an unsupported " +
             "Minecraft version!");
     }
 
