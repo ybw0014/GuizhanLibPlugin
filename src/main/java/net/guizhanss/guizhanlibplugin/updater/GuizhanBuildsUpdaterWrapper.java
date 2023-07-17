@@ -9,12 +9,13 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.File;
 
 /**
- * This is a wrapper updater.
+ * This is a wrapper updater. Deprecated in favor of {@link GuizhanUpdater}.
  * <p>
  * Call {@link #start(Plugin, File, String, String, String, boolean)} to create an updater.
  *
  * @author ybw0014
  */
+@Deprecated(since = "1.3.0")
 public final class GuizhanBuildsUpdaterWrapper {
     private static GuizhanBuildsUpdaterWrapper instance;
 

@@ -16,6 +16,7 @@ import javax.annotation.Nullable;
  *
  * @author ybw0014
  */
+@SuppressWarnings("deprecated")
 public final class GuizhanLibPlugin extends JavaPlugin implements SlimefunAddon {
 
     private static GuizhanLibPlugin instance;
