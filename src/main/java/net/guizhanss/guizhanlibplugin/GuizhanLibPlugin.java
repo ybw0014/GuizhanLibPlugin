@@ -1,6 +1,7 @@
 package net.guizhanss.guizhanlibplugin;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
+import net.guizhanss.guizhanlibplugin.config.ConfigManager;
 import net.guizhanss.guizhanlibplugin.setup.MinecraftLanguageSetup;
 import net.guizhanss.guizhanlibplugin.updater.GuizhanBuildsUpdaterWrapper;
 import net.guizhanss.guizhanlibplugin.updater.GuizhanUpdater;
@@ -10,6 +11,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.lang.reflect.Field;
+import java.util.logging.Level;
 
 /**
  * GuizhanLib plugin version.
@@ -21,7 +24,12 @@ public final class GuizhanLibPlugin extends JavaPlugin implements SlimefunAddon 
 
     private static GuizhanLibPlugin instance;
 
-    private boolean autoUpdateEnabled;
+    private ConfigManager configManager;
+
+    @Nonnull
+    public static ConfigManager getConfigManager() {
+        return getInstance().configManager;
+    }
 
     /**
      * Get the instance of plugin.
@@ -46,16 +54,10 @@ public final class GuizhanLibPlugin extends JavaPlugin implements SlimefunAddon 
     @Override
     public void onEnable() {
         setInstance(this);
+        configManager = new ConfigManager(this);
 
-        saveDefaultConfig();
-
-        MinecraftLanguageSetup.setup(this);
-
-        final String updaterLocation = getConfig().getString("updater-location", "GLOBAL");
-        GuizhanBuildsUpdaterWrapper.setup(updaterLocation);
-        GuizhanUpdater.setup(updaterLocation);
-        autoUpdateEnabled = getConfig().getBoolean("auto-update", true);
-
+        setupMinecraftLanguage();
+        setupUpdater();
         setupMetrics();
         autoUpdate();
     }
@@ -65,14 +67,42 @@ public final class GuizhanLibPlugin extends JavaPlugin implements SlimefunAddon 
         setInstance(null);
     }
 
+    private void setupMinecraftLanguage() {
+        try {
+            MinecraftLanguageSetup.setup(this);
+        } catch (Exception ex) {
+            if (configManager.isDebugEnabled()) {
+                getLogger().log(Level.SEVERE, ex, ex::getMessage);
+            }
+        }
+    }
+
+    private void setupUpdater() {
+        final String updaterLocation = getConfig().getString("updater-location", "GLOBAL");
+        GuizhanBuildsUpdaterWrapper.setup(updaterLocation);
+        GuizhanUpdater.setup(updaterLocation);
+
+        if (configManager.isDebugEnabled()) {
+            // enable debug messages in UpdaterTask
+            try {
+                Class<?> clazz = Class.forName("net.guizhanss.guizhanlib.updater.UpdaterTask");
+                Field field = clazz.getDeclaredField("DEBUG");
+                field.setAccessible(true);
+                field.set(null, true);
+            } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException ex) {
+                getLogger().log(Level.SEVERE, ex, ex::getMessage);
+            }
+        }
+    }
+
     private void setupMetrics() {
         final Metrics metrics = new Metrics(this, 15713);
 
-        metrics.addCustomChart(new SimplePie("auto_update", () -> String.valueOf(autoUpdateEnabled)));
+        metrics.addCustomChart(new SimplePie("auto_update", () -> String.valueOf(configManager.isAutoUpdateEnabled())));
     }
 
     private void autoUpdate() {
-        if (autoUpdateEnabled && getDescription().getVersion().startsWith("Build")) {
+        if (configManager.isAutoUpdateEnabled() && getDescription().getVersion().startsWith("Build")) {
             GuizhanUpdater.start(this, getFile(), "ybw0014", "GuizhanLibPlugin", "master");
         }
     }
