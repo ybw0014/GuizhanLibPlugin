@@ -13,3 +13,6 @@ auto-update: true
 # cn - 在中国大陆使用腾讯云搭建的镜像站点. https://builds.guizhanss.cn/
 updater-location: global
 
+# Whether to print debug messages in console.
+# 是否在控制台输出调试信息。
+debug: false
