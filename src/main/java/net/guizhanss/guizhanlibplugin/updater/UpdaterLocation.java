@@ -1,5 +1,7 @@
 package net.guizhanss.guizhanlibplugin.updater;
 
+import lombok.Getter;
+
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -10,15 +12,23 @@ import javax.annotation.ParametersAreNonnullByDefault;
  */
 enum UpdaterLocation {
     /**
-     * Global deployment by Cloudflare.
-     * <a href="https://builds.guizhanss.net/">https://builds.guizhanss.net/</a>
+     * Cloudflare Pages.
+     * <a href="https://builds.guizhanss.com/">https://builds.guizhanss.com/</a>
      */
-    GLOBAL,
+    GLOBAL("https://builds.guizhanss.com/"),
+
     /**
-     * Mainland China mirror by Tencent Cloud.
+     * China mainland mirror by Tencent Cloud.
      * <a href="https://builds.guizhanss.cn/">https://builds.guizhanss.cn/</a>
      */
-    CN;
+    CN("https://builds.guizhanss.cn/");
+
+    @Getter
+    private final String baseUrl;
+
+    UpdaterLocation(String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
 
     @ParametersAreNonnullByDefault
     @Nonnull
