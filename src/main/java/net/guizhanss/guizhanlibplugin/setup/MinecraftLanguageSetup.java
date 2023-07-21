@@ -33,6 +33,7 @@ public final class MinecraftLanguageSetup {
             if (stream != null) {
                 plugin.getLogger().log(Level.INFO, "Loading language file for Minecraft version 1." + mcVersion);
                 LanguageHelper.loadFromStream(stream);
+                plugin.getLogger().log(Level.INFO, "Loaded language file for Minecraft version 1." + mcVersion);
                 return;
             } else {
                 plugin.getLogger().log(Level.INFO, "The language file for Minecraft version 1." + mcVersion + "is " +
