@@ -1,44 +1,20 @@
 package net.guizhanss.guizhanlibplugin.updater;
 
-import net.guizhanss.guizhanlib.updater.GuizhanBuildsCNUpdater;
-import net.guizhanss.guizhanlib.updater.GuizhanBuildsUpdater;
+import lombok.experimental.UtilityClass;
 import net.guizhanss.guizhanlib.updater.UpdaterConfig;
+import net.guizhanss.guizhanlibplugin.GuizhanLibPlugin;
 import org.bukkit.plugin.Plugin;
 
-import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.File;
 
 /**
- * This is almost same wrapper with {@link GuizhanBuildsUpdaterWrapper}, but have a shorter name and have more options.
- * <p>
- * Call {@link #start(Plugin, File, String, String, String)} to create an updater.
+ * The universal updater wrapper.
  *
  * @author ybw0014
  */
+@UtilityClass
 public final class GuizhanUpdater {
-    private static GuizhanUpdater instance;
-
-    private boolean isSetup = false;
-    private UpdaterLocation updaterLocation = UpdaterLocation.GLOBAL;
-
-    /**
-     * This is a singleton class, so no public constructor.
-     */
-    private GuizhanUpdater() {
-    }
-
-    /**
-     * Initialize the wrapper.
-     *
-     * @param location
-     *     The updater location from config
-     */
-    @ParametersAreNonnullByDefault
-    public static void setup(String location) {
-        getInstance().setupUpdater(location);
-    }
-
     /**
      * Call the corresponding updater.
      *
@@ -89,10 +65,7 @@ public final class GuizhanUpdater {
         String githubBranch,
         UpdaterConfig config
     ) {
-        switch (getInstance().updaterLocation) {
-            case CN -> new GuizhanBuildsCNUpdater(plugin, file, githubUser, githubRepo, githubBranch, config).start();
-            case GLOBAL -> new GuizhanBuildsUpdater(plugin, file, githubUser, githubRepo, githubBranch, config).start();
-        }
+        GuizhanLibPlugin.getUniversalUpdater().add(plugin, file, githubUser, githubRepo, githubBranch, config);
     }
 
     /**
@@ -123,28 +96,6 @@ public final class GuizhanUpdater {
         String githubBranch,
         boolean checkOnly
     ) {
-        switch (getInstance().updaterLocation) {
-            case CN ->
-                new GuizhanBuildsCNUpdater(plugin, file, githubUser, githubRepo, githubBranch, checkOnly).start();
-            case GLOBAL ->
-                new GuizhanBuildsUpdater(plugin, file, githubUser, githubRepo, githubBranch, checkOnly).start();
-        }
-    }
-
-    @Nonnull
-    private static GuizhanUpdater getInstance() {
-        if (instance == null) {
-            instance = new GuizhanUpdater();
-        }
-        return instance;
-    }
-
-    @ParametersAreNonnullByDefault
-    private void setupUpdater(String location) {
-        if (isSetup) {
-            throw new IllegalStateException("GuizhanBuildsUpdaterWrapper has been setup already.");
-        }
-        this.updaterLocation = UpdaterLocation.getLocation(location);
-        isSetup = true;
+        start(plugin, file, githubUser, githubRepo, githubBranch, UpdaterConfig.builder().checkOnly(checkOnly).build());
     }
 }

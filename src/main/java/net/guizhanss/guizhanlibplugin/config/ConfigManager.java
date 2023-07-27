@@ -20,6 +20,8 @@ public final class ConfigManager {
     private boolean autoUpdateEnabled;
     @Getter
     private String updaterLocation;
+    @Getter
+    private String updaterLang;
 
     public ConfigManager(@Nonnull GuizhanLibPlugin plugin) {
         this.plugin = plugin;
@@ -29,7 +31,8 @@ public final class ConfigManager {
 
         debugEnabled = config.getBoolean("debug", false);
         autoUpdateEnabled = config.getBoolean("auto-update", true);
-        updaterLocation = config.getString("updater-location", "global");
+        updaterLocation = config.getString("updater.location", "global");
+        updaterLang = config.getString("updater.lang", "en_US");
 
         if (debugEnabled) {
             plugin.getLogger().info("Debug mode is enabled.");

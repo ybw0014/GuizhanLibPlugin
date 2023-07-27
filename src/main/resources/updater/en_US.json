@@ -1,0 +1,7 @@
+{
+  "init": "Loaded language pack!",
+  "loading": "Initializing universal updater task...",
+  "loaded": "Found {0} updater tasks.",
+  "task.running": "Running task {0} ({1})...",
+  "task.failed": "Updater task ({0}) failed!"
+}
