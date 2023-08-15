@@ -78,15 +78,10 @@ public class UniversalUpdaterTask implements Runnable {
     private void runTask(@Nonnull UpdaterRecord record) {
         try {
             switch (UpdaterLocation.getLocation(GuizhanLibPlugin.getConfigManager().getUpdaterLocation())) {
-                case CN:
-                    new GuizhanBuildsCNUpdater(record.plugin(), record.file(), record.githubUser(),
-                        record.githubRepo(), record.githubBranch(), record.updaterConfig()).start();
-                    break;
-                case GLOBAL:
-                    new GuizhanBuildsUpdater(record.plugin(), record.file(), record.githubUser(),
-                        record.githubRepo(), record.githubBranch(), record.updaterConfig()).start();
-                    break;
-
+                case CN -> new GuizhanBuildsCNUpdater(record.plugin(), record.file(), record.githubUser(),
+                    record.githubRepo(), record.githubBranch(), record.updaterConfig()).start();
+                case GLOBAL -> new GuizhanBuildsUpdater(record.plugin(), record.file(), record.githubUser(),
+                    record.githubRepo(), record.githubBranch(), record.updaterConfig()).start();
             }
         } catch (Exception ex) {
             log(Level.SEVERE, ex, lang.get("task.failed"), record.plugin().getName());
