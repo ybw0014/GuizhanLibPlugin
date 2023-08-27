@@ -6,7 +6,7 @@
 
 从构建站下载: [点击前往](https://builds.guizhanss.com/ybw0014/GuizhanLibPlugin/master)
 
-![构建状态](https://builds.guizhanss.com/f/ybw0014/GuizhanLibPlugin/master/badge.svg)
+![构建状态](https://builds.guizhanss.com/ybw0014/GuizhanLibPlugin/master/badge.svg)
 
 ## 如何使用
 
