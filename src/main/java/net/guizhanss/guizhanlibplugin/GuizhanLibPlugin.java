@@ -75,11 +75,12 @@ public final class GuizhanLibPlugin extends AbstractAddon {
             // enable debug messages in UpdaterTask
             try {
                 Class<?> clazz = Class.forName("net.guizhanss.guizhanlib.updater.UpdaterTask");
-                Field field = clazz.getDeclaredField("DEBUG");
+                Field field = clazz.getDeclaredField("debug");
                 field.setAccessible(true);
                 field.set(null, true);
             } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException ex) {
-                getLogger().log(Level.SEVERE, ex, ex::getMessage);
+                getLogger().log(Level.SEVERE, ex, () -> "An error occurred while enabling debug messages in auto " +
+                    "updater");
             }
         }
     }
