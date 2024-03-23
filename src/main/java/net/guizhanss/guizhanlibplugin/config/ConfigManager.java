@@ -10,18 +10,18 @@ public final class ConfigManager {
     private final GuizhanLibPlugin plugin;
 
     @Getter
-    private AddonConfig config;
+    private final AddonConfig config;
     @Getter
-    private AddonConfig updaterConfig;
+    private final AddonConfig updaterConfig;
 
     @Getter
-    private boolean debugEnabled;
+    private final boolean debugEnabled;
     @Getter
-    private boolean autoUpdateEnabled;
+    private final boolean autoUpdateEnabled;
     @Getter
-    private String updaterLocation;
+    private final String updaterLocation;
     @Getter
-    private String updaterLang;
+    private final String updaterLang;
 
     public ConfigManager(@Nonnull GuizhanLibPlugin plugin) {
         this.plugin = plugin;

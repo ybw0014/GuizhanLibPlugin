@@ -14,8 +14,8 @@ import java.util.List;
  *
  * @author ybw0014
  */
+@Getter
 public final class UniversalUpdater {
-    @Getter
     private final List<UpdaterRecord> records = new ArrayList<>();
 
     public void add(Plugin plugin, File file, String githubUser, String githubRepo, String githubBranch,
@@ -24,6 +24,6 @@ public final class UniversalUpdater {
     }
 
     public void start() {
-        GuizhanLibPlugin.getScheduler().runAsync(1, new UniversalUpdaterTask(this));
+        GuizhanLibPlugin.getScheduler().runAsync(new UniversalUpdaterTask(this));
     }
 }

@@ -36,6 +36,7 @@ public class UniversalUpdaterTask implements Runnable {
         log(Level.INFO, lang.get("loading"));
         log(Level.INFO, lang.get("loaded"), records.size());
 
+        // run tasks
         for (int i = 0; i < records.size(); i++) {
             final UpdaterRecord record = records.get(i);
             log(Level.INFO, lang.get("task.running"), i + 1, record.plugin().getName());
@@ -47,8 +48,8 @@ public class UniversalUpdaterTask implements Runnable {
         final GuizhanLibPlugin plugin = GuizhanLibPlugin.getInstance();
         InputStream stream;
         try {
-             stream =
-                 plugin.getClass().getResourceAsStream("/updater/" + GuizhanLibPlugin.getConfigManager().getUpdaterLang() + ".json");
+            stream =
+                plugin.getClass().getResourceAsStream("/updater/" + GuizhanLibPlugin.getConfigManager().getUpdaterLang() + ".json");
         } catch (Exception ex) {
             log(Level.WARNING, "Failed to load updater language file, using default en_US.");
             try {
@@ -76,6 +77,11 @@ public class UniversalUpdaterTask implements Runnable {
     }
 
     private void runTask(@Nonnull UpdaterRecord record) {
+        // check if the plugin is disabled
+        if (!record.plugin().isEnabled()) {
+            log(Level.INFO, lang.get("task.disabled"), record.plugin().getName());
+            return;
+        }
         try {
             switch (UpdaterLocation.getLocation(GuizhanLibPlugin.getConfigManager().getUpdaterLocation())) {
                 case CN -> new GuizhanBuildsCNUpdater(record.plugin(), record.file(), record.githubUser(),

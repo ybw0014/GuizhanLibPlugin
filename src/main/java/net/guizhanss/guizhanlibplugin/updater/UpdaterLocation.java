@@ -11,6 +11,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
  *
  * @author ybw0014
  */
+@Getter
 @AllArgsConstructor
 enum UpdaterLocation {
     /**
@@ -23,9 +24,7 @@ enum UpdaterLocation {
      */
     CN("https://builds.guizhanss.cn/", "https://builds-r2.gzassets.cn/");
 
-    @Getter
     private final String baseUrl;
-    @Getter
     private final String r2BaseUrl;
 
     @ParametersAreNonnullByDefault

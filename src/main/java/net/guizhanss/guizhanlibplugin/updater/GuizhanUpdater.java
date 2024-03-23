@@ -18,16 +18,11 @@ public final class GuizhanUpdater {
     /**
      * Call the corresponding updater.
      *
-     * @param plugin
-     *     The {@link Plugin} instance
-     * @param file
-     *     The {@link File} of plugin
-     * @param githubUser
-     *     GitHub user
-     * @param githubRepo
-     *     GitHub repository
-     * @param githubBranch
-     *     GitHub branch
+     * @param plugin       The {@link Plugin} instance
+     * @param file         The {@link File} of plugin
+     * @param githubUser   GitHub user
+     * @param githubRepo   GitHub repository
+     * @param githubBranch GitHub branch
      */
     @ParametersAreNonnullByDefault
     public static void start(
@@ -43,18 +38,12 @@ public final class GuizhanUpdater {
     /**
      * Call the corresponding updater.
      *
-     * @param plugin
-     *     The {@link Plugin} instance
-     * @param file
-     *     The {@link File} of plugin
-     * @param githubUser
-     *     GitHub user
-     * @param githubRepo
-     *     GitHub repository
-     * @param githubBranch
-     *     GitHub branch
-     * @param config
-     *     The {@link UpdaterConfig}
+     * @param plugin       The {@link Plugin} instance
+     * @param file         The {@link File} of plugin
+     * @param githubUser   GitHub user
+     * @param githubRepo   GitHub repository
+     * @param githubBranch GitHub branch
+     * @param config       The {@link UpdaterConfig}
      */
     @ParametersAreNonnullByDefault
     public static void start(
@@ -71,19 +60,12 @@ public final class GuizhanUpdater {
     /**
      * Call the corresponding updater.
      *
-     * @param plugin
-     *     The {@link Plugin} instance
-     * @param file
-     *     The {@link File} of plugin
-     * @param githubUser
-     *     GitHub user
-     * @param githubRepo
-     *     GitHub repository
-     * @param githubBranch
-     *     GitHub branch
-     * @param checkOnly
-     *     Whether to check the version only, without downloading
-     *
+     * @param plugin       The {@link Plugin} instance
+     * @param file         The {@link File} of plugin
+     * @param githubUser   GitHub user
+     * @param githubRepo   GitHub repository
+     * @param githubBranch GitHub branch
+     * @param checkOnly    Whether to check the version only, without downloading
      * @deprecated In favor of new config system.
      */
     @Deprecated
