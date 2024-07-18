@@ -35,7 +35,7 @@ public final class MinecraftLanguageSetup {
                 plugin.getLogger().log(Level.INFO, "Loaded language file for Minecraft version 1." + mcVersion);
                 return;
             } else {
-                plugin.getLogger().log(Level.INFO, "The language file for Minecraft version 1." + mcVersion + "is " +
+                plugin.getLogger().log(Level.INFO, "The language file for Minecraft version 1." + mcVersion + " is " +
                     "missing, finding the language file of previous version");
                 mcVersion--;
             }

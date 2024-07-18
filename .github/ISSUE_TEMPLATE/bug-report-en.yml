@@ -96,17 +96,11 @@ body:
     validations:
       required: true
 
-  - type: dropdown
+  - type: input
     id: minecraft-version
     attributes:
       label: Minecraft Version
-      description: Please select your Minecraft Version
-      options:
-        - 1.19.x
-        - 1.18.x
-        - 1.17.x
-        - 1.16.x
-        - Older versions are not supported
+      description: Please type your Minecraft Version
     validations:
       required: true
 

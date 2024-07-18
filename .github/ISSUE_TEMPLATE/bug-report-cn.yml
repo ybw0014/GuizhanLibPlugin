@@ -20,8 +20,8 @@ body:
       options:
         - label: 你使用的是从构建站下载的版本 (https://builds.guizhanss.net)
           required: true
-        - label: 你已经检验过下载的文件的校验和，确认已完整下载文件 (暂未推出)
-          required: false
+        - label: 你已经检验过下载的文件的校验和，确认已完整下载文件
+          required: true
         - label: 你没有对下载的文件内容进行任何更改
           required: true
         - label: 你已经寻找过[已知问题列表](https://github.com/ybw0014/GuizhanLibPlugin/issues)，且没有找到相同的问题
@@ -98,17 +98,11 @@ body:
     validations:
       required: true
 
-  - type: dropdown
+  - type: input
     id: minecraft-version
     attributes:
       label: Minecraft 版本
-      description: 请选择你的 Minecraft 版本
-      options:
-        - 1.19.x
-        - 1.18.x
-        - 1.17.x
-        - 1.16.x
-        - 本插件不支持旧版本
+      description: 请填写你的 Minecraft 版本
     validations:
       required: true
 
