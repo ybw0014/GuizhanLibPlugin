@@ -5,7 +5,7 @@ import net.guizhanss.guizhanlib.slimefun.addon.AbstractAddon;
 import net.guizhanss.guizhanlibplugin.config.ConfigManager;
 import net.guizhanss.guizhanlibplugin.setup.MinecraftLanguageSetup;
 import net.guizhanss.guizhanlibplugin.updater.GuizhanUpdater;
-import net.guizhanss.guizhanlibplugin.updater.UniversalUpdater;
+import net.guizhanss.guizhanlibplugin.updater.universal.v2.UniversalUpdater;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.DrilldownPie;
 import org.bstats.charts.SimplePie;
@@ -58,6 +58,7 @@ public final class GuizhanLibPlugin extends AbstractAddon {
 
     @Override
     public void disable() {
+        // nothing to do
     }
 
     private void setupMinecraftLanguage() {

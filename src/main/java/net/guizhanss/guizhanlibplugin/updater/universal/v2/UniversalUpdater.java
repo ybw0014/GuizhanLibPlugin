@@ -1,4 +1,4 @@
-package net.guizhanss.guizhanlibplugin.updater;
+package net.guizhanss.guizhanlibplugin.updater.universal.v2;
 
 import lombok.Getter;
 import net.guizhanss.guizhanlib.updater.UpdaterConfig;

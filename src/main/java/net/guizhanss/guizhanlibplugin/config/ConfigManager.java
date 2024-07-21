@@ -7,12 +7,8 @@ import net.guizhanss.guizhanlibplugin.GuizhanLibPlugin;
 import javax.annotation.Nonnull;
 
 public final class ConfigManager {
-    private final GuizhanLibPlugin plugin;
-
     @Getter
     private final AddonConfig config;
-    @Getter
-    private final AddonConfig updaterConfig;
 
     @Getter
     private final boolean debugEnabled;
@@ -24,10 +20,7 @@ public final class ConfigManager {
     private final String updaterLang;
 
     public ConfigManager(@Nonnull GuizhanLibPlugin plugin) {
-        this.plugin = plugin;
-
         config = new AddonConfig(plugin, "config.yml");
-        updaterConfig = new AddonConfig(plugin, "updater.yml");
 
         debugEnabled = config.getBoolean("debug", false);
         autoUpdateEnabled = config.getBoolean("auto-update", true);

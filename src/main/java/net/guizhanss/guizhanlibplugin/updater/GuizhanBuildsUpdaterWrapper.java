@@ -11,9 +11,9 @@ import java.io.File;
  * The universal updater wrapper.
  *
  * @author ybw0014
- * @deprecated This class is deprecated, use {@link GuizhanUpdater} instead.
+ * @deprecated Use {@link GuizhanUpdater} instead.
  */
-@Deprecated(since = "1.3.0")
+@Deprecated(since = "1.3.0", forRemoval = true)
 @UtilityClass
 public final class GuizhanBuildsUpdaterWrapper {
     /**

@@ -4,5 +4,11 @@
   "loaded": "已找到 {0} 个更新任务。",
   "task.running": "正在执行任务 {0}（{1}）...",
   "task.disabled": "任务 {0} 插件 ({1}) 已禁用...",
-  "task.failed": "更新任务（{0}）失败！"
+  "task.failed": "自动更新任务 ({0}) 失败！",
+  "task.no-info": "无法获取 {0} 的构建信息！",
+  "task.has-update": "{0} 有可用的新版本！",
+  "task.no-update": "{0} 已是最新版本！",
+  "task.check-only": "自动更新已设置为仅检测更新，你需要手动下载更新。",
+  "task.downloading": "正在下载更新 {0} ({1})...",
+  "task.downloaded": "已完成 {0} ({1}) 下载！重启服务器以应用更改。"
 }
