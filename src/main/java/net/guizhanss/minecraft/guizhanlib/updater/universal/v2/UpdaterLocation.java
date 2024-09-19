@@ -1,4 +1,4 @@
-package net.guizhanss.guizhanlibplugin.updater.universal.v2;
+package net.guizhanss.minecraft.guizhanlib.updater.universal.v2;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +21,10 @@ enum UpdaterLocation {
 
     /**
      * China mainland mirror by Tencent Cloud.
+     *
+     * @deprecated This location is not available right now.
      */
+    @Deprecated
     CN("https://builds.guizhanss.cn/", "https://builds-r2.gzassets.cn/");
 
     private final String baseUrl;
@@ -30,10 +33,11 @@ enum UpdaterLocation {
     @ParametersAreNonnullByDefault
     @Nonnull
     public static UpdaterLocation getLocation(String location) {
-        try {
-            return UpdaterLocation.valueOf(location.toUpperCase());
-        } catch (IllegalArgumentException ex) {
-            return UpdaterLocation.GLOBAL;
-        }
+        return UpdaterLocation.GLOBAL;
+//        try {
+//            return UpdaterLocation.valueOf(location.toUpperCase());
+//        } catch (IllegalArgumentException ex) {
+//            return UpdaterLocation.GLOBAL;
+//        }
     }
 }

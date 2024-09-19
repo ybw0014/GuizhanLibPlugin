@@ -1,8 +1,8 @@
-package net.guizhanss.guizhanlibplugin.updater.universal.v2;
+package net.guizhanss.minecraft.guizhanlib.updater.universal.v2;
 
 import lombok.Getter;
 import net.guizhanss.guizhanlib.updater.UpdaterConfig;
-import net.guizhanss.guizhanlibplugin.GuizhanLibPlugin;
+import net.guizhanss.minecraft.guizhanlib.GuizhanLib;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
@@ -24,6 +24,6 @@ public final class UniversalUpdater {
     }
 
     public void start() {
-        GuizhanLibPlugin.getScheduler().runAsync(new UniversalUpdaterTask(this));
+        GuizhanLib.getScheduler().runAsync(new UniversalUpdaterTask(this));
     }
 }

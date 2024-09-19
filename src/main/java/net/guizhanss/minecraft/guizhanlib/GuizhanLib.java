@@ -1,11 +1,11 @@
-package net.guizhanss.guizhanlibplugin;
+package net.guizhanss.minecraft.guizhanlib;
 
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import net.guizhanss.guizhanlib.slimefun.addon.AbstractAddon;
-import net.guizhanss.guizhanlibplugin.config.ConfigManager;
-import net.guizhanss.guizhanlibplugin.setup.MinecraftLanguageSetup;
-import net.guizhanss.guizhanlibplugin.updater.GuizhanUpdater;
-import net.guizhanss.guizhanlibplugin.updater.universal.v2.UniversalUpdater;
+import net.guizhanss.minecraft.guizhanlib.config.ConfigManager;
+import net.guizhanss.minecraft.guizhanlib.setup.MinecraftLanguageSetup;
+import net.guizhanss.minecraft.guizhanlib.updater.GuizhanUpdater;
+import net.guizhanss.minecraft.guizhanlib.updater.universal.v2.UniversalUpdater;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.DrilldownPie;
 import org.bstats.charts.SimplePie;
@@ -22,12 +22,12 @@ import java.util.logging.Level;
  * @author ybw0014
  */
 @SuppressWarnings("deprecated")
-public final class GuizhanLibPlugin extends AbstractAddon {
+public final class GuizhanLib extends AbstractAddon {
 
     private final UniversalUpdater universalUpdater = new UniversalUpdater();
     private ConfigManager configManager;
 
-    public GuizhanLibPlugin() {
+    public GuizhanLib() {
         super("ybw0014", "GuizhanLibPlugin", "master", "auto-update");
     }
 
@@ -42,7 +42,7 @@ public final class GuizhanLibPlugin extends AbstractAddon {
     }
 
     @Nonnull
-    private static GuizhanLibPlugin inst() {
+    private static GuizhanLib inst() {
         return getInstance();
     }
 
@@ -99,7 +99,11 @@ public final class GuizhanLibPlugin extends AbstractAddon {
             String branch = "Other";
 
             innerMap.put(sfVersion, 1);
-            if (sfVersion.endsWith("-Insider")) {
+            if (sfVersion.startsWith("Dev")) {
+                branch = "Official Dev";
+            } else if (sfVersion.startsWith("RC")) {
+                branch = "Official RC";
+            } else if (sfVersion.endsWith("-Insider")) {
                 branch = "Insider";
             } else if (sfVersion.endsWith("-canary") || sfVersion.endsWith("-Beta")) {
                 branch = "Beta";

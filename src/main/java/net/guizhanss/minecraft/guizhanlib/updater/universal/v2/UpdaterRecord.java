@@ -1,4 +1,4 @@
-package net.guizhanss.guizhanlibplugin.updater.universal.v2;
+package net.guizhanss.minecraft.guizhanlib.updater.universal.v2;
 
 import net.guizhanss.guizhanlib.updater.UpdaterConfig;
 import org.bukkit.plugin.Plugin;

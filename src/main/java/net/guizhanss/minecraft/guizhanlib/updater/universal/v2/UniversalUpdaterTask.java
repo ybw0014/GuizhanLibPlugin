@@ -1,16 +1,12 @@
-package net.guizhanss.guizhanlibplugin.updater.universal.v2;
+package net.guizhanss.minecraft.guizhanlib.updater.universal.v2;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import lombok.RequiredArgsConstructor;
-import net.guizhanss.guizhanlib.updater.GuizhanBuildsCNUpdater;
-import net.guizhanss.guizhanlib.updater.GuizhanBuildsUpdater;
-import net.guizhanss.guizhanlib.updater.LocaleKey;
-import net.guizhanss.guizhanlibplugin.GuizhanLibPlugin;
+import net.guizhanss.minecraft.guizhanlib.GuizhanLib;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -21,7 +17,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -29,18 +24,17 @@ import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
-import java.util.MissingResourceException;
 import java.util.logging.Level;
 
 @RequiredArgsConstructor
-public class UniversalUpdaterTask implements Runnable {
+class UniversalUpdaterTask implements Runnable {
 
     private static final String BUILD_PATH = "api/build/%s/%s/%s/latest?status=success";
     private static final String DOWNLOAD_PATH = "api/download/%s/%s/%s/%d";
 
     private static final HttpClient HTTP_CLIENT = HttpClient.newHttpClient();
     private static final Gson GSON = new Gson();
-    private static final UpdaterLocation location = UpdaterLocation.getLocation(GuizhanLibPlugin.getConfigManager().getUpdaterLocation());
+    private static final UpdaterLocation location = UpdaterLocation.getLocation(GuizhanLib.getConfigManager().getUpdaterLocation());
 
     private final UniversalUpdater updater;
     private Map<String, String> lang;
@@ -66,17 +60,17 @@ public class UniversalUpdaterTask implements Runnable {
     }
 
     private boolean loadLanguage() {
-        final GuizhanLibPlugin plugin = GuizhanLibPlugin.getInstance();
+        final GuizhanLib plugin = GuizhanLib.getInstance();
         InputStream stream;
         try {
             stream =
-                plugin.getClass().getResourceAsStream("/updater/" + GuizhanLibPlugin.getConfigManager().getUpdaterLang() + ".json");
+                plugin.getClass().getResourceAsStream("/updater/" + GuizhanLib.getConfigManager().getUpdaterLang() + ".json");
         } catch (Exception ex) {
-            GuizhanLibPlugin.log(Level.WARNING, "Failed to load updater language file, using default en_US.");
+            GuizhanLib.log(Level.WARNING, "Failed to load updater language file, using default en_US.");
             try {
                 stream = plugin.getClass().getResourceAsStream("/updater/en_US.json");
             } catch (Exception e) {
-                GuizhanLibPlugin.log(Level.SEVERE, "Failed to load default updater language file, please report this!");
+                GuizhanLib.log(Level.SEVERE, "Failed to load default updater language file, please report this!");
                 return false;
             }
         }
@@ -90,7 +84,7 @@ public class UniversalUpdaterTask implements Runnable {
             // @formatter:on
             log(Level.INFO, "init");
         } catch (Exception ex) {
-            GuizhanLibPlugin.log(Level.SEVERE, ex, "Failed to load updater language file, please report this!");
+            GuizhanLib.log(Level.SEVERE, ex, "Failed to load updater language file, please report this!");
             return false;
         }
 
@@ -181,15 +175,15 @@ public class UniversalUpdaterTask implements Runnable {
 
     private void log(Level level, String key, Object... args) {
         String msg = lang.get(key) != null ? lang.get(key) : key;
-        GuizhanLibPlugin.log(level, msg, args);
+        GuizhanLib.log(level, msg, args);
     }
 
     private void log(Level level, Throwable throwable, String key, Object... args) {
         String msg = lang.get(key) != null ? lang.get(key) : key;
-        if (GuizhanLibPlugin.getConfigManager().isDebugEnabled()) {
-            GuizhanLibPlugin.log(level, throwable, msg, args);
+        if (GuizhanLib.getConfigManager().isDebugEnabled()) {
+            GuizhanLib.log(level, throwable, msg, args);
         } else {
-            GuizhanLibPlugin.log(level, msg, args);
+            GuizhanLib.log(level, msg, args);
         }
     }
 }

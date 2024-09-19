@@ -1,13 +1,18 @@
-package net.guizhanss.guizhanlibplugin.config;
+package net.guizhanss.minecraft.guizhanlib.config;
 
 import lombok.Getter;
 import net.guizhanss.guizhanlib.slimefun.addon.AddonConfig;
-import net.guizhanss.guizhanlibplugin.GuizhanLibPlugin;
+import net.guizhanss.minecraft.guizhanlib.GuizhanLib;
 
 import javax.annotation.Nonnull;
 
+/**
+ * The configuration manager for the plugin.
+ *
+ * @author ybw0014
+ */
 public final class ConfigManager {
-    @Getter
+
     private final AddonConfig config;
 
     @Getter
@@ -19,7 +24,7 @@ public final class ConfigManager {
     @Getter
     private final String updaterLang;
 
-    public ConfigManager(@Nonnull GuizhanLibPlugin plugin) {
+    public ConfigManager(@Nonnull GuizhanLib plugin) {
         config = new AddonConfig(plugin, "config.yml");
 
         debugEnabled = config.getBoolean("debug", false);
@@ -30,7 +35,7 @@ public final class ConfigManager {
         if (debugEnabled) {
             plugin.getLogger().info("Debug mode is enabled.");
             plugin.getLogger().info("Auto update is " + (autoUpdateEnabled ? "enabled" : "disabled") + ".");
-            plugin.getLogger().info("Updater location is " + (autoUpdateEnabled ? "enabled" : "disabled") + ".");
+            plugin.getLogger().info("Updater location is " + updaterLocation + ".");
         }
     }
 }
