@@ -1,9 +1,12 @@
 package net.guizhanss.minecraft.guizhanlib;
 
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import lombok.Getter;
+import lombok.experimental.Accessors;
 import net.guizhanss.guizhanlib.slimefun.addon.AbstractAddon;
+import net.guizhanss.guizhanlib.slimefun.addon.Environment;
 import net.guizhanss.minecraft.guizhanlib.config.ConfigManager;
-import net.guizhanss.minecraft.guizhanlib.setup.MinecraftLanguageSetup;
+import net.guizhanss.minecraft.guizhanlib.gugu.MinecraftLocalization;
 import net.guizhanss.minecraft.guizhanlib.updater.GuizhanUpdater;
 import net.guizhanss.minecraft.guizhanlib.updater.universal.v2.UniversalUpdater;
 import org.bstats.bukkit.Metrics;
@@ -22,13 +25,19 @@ import java.util.logging.Level;
  * @author ybw0014
  */
 @SuppressWarnings("deprecated")
-public final class GuizhanLib extends AbstractAddon {
+public class GuizhanLib extends AbstractAddon {
 
     private final UniversalUpdater universalUpdater = new UniversalUpdater();
     private ConfigManager configManager;
+    @Getter
+    @Accessors(fluent = true)
+    private final boolean isUnitTest;
 
     public GuizhanLib() {
         super("ybw0014", "GuizhanLibPlugin", "master", "auto-update");
+
+        // a hacky way to check if mockbukkit is used
+        isUnitTest = getClassLoader().getClass().getPackageName().startsWith("be.seeseemelk.mockbukkit");
     }
 
     @Nonnull
@@ -51,9 +60,11 @@ public final class GuizhanLib extends AbstractAddon {
         configManager = new ConfigManager(this);
 
         setupMinecraftLanguage();
-        setupUpdater();
-        setupMetrics();
-        universalUpdater.start();
+        if (!isUnitTest) {
+            setupUpdater();
+            setupMetrics();
+            universalUpdater.start();
+        }
     }
 
     @Override
@@ -63,7 +74,7 @@ public final class GuizhanLib extends AbstractAddon {
 
     private void setupMinecraftLanguage() {
         try {
-            MinecraftLanguageSetup.setup(this);
+            MinecraftLocalization.load();
         } catch (Exception ex) {
             if (configManager.isDebugEnabled()) {
                 getLogger().log(Level.SEVERE, ex, ex::getMessage);
@@ -118,7 +129,7 @@ public final class GuizhanLib extends AbstractAddon {
 
     @Override
     protected void autoUpdate() {
-        if (getDescription().getVersion().startsWith("Build")) {
+        if (getPluginVersion().startsWith("Build")) {
             GuizhanUpdater.start(this, getFile(), "ybw0014", "GuizhanLibPlugin", "master");
         }
     }

@@ -35,7 +35,7 @@ public class MinecraftLocalization {
             logger.log(Level.INFO, "开始加载 Minecraft 本地化文件");
             int mcVersion = PaperLib.getMinecraftVersion();
             InputStream stream;
-            while (mcVersion >= 16) {
+            while (mcVersion >= 18) {
                 logger.log(Level.INFO, "尝试寻找 1." + mcVersion);
                 final String filename = "/minecraft-lang/1." + mcVersion + "/zh_cn.json";
                 stream = GuizhanLib.getInstance().getClass().getResourceAsStream(filename);
@@ -48,7 +48,7 @@ public class MinecraftLocalization {
                     Type type = new TypeToken<Map<String, String>>() {}.getType();
                     // @formatter:on
                     lang = GSON.fromJson(reader, type);
-                    logger.log(Level.INFO, "已加载 1." + mcVersion);
+                    logger.log(Level.INFO, "已加载 1." + mcVersion + " 的本地化文件");
                     return;
                 } else {
                     logger.log(Level.INFO, "1." + mcVersion + " 的本地化文件缺失，正在尝试加载上一个版本");
@@ -79,7 +79,8 @@ public class MinecraftLocalization {
      */
     @Nullable
     public static String getOrNull(@Nonnull String key) {
-        Preconditions.checkArgument(key != null, "键名不能为空");
+        Preconditions.checkNotNull(key);
+        Preconditions.checkNotNull(instance, "MinecraftLocalization has not been initialized");
 
         return instance.lang.get(key);
     }

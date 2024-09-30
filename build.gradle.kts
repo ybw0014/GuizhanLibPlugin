@@ -1,8 +1,7 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
 group = "net.guizhanss"
 
 plugins {
+    java
     `java-library`
     `maven-publish`
     signing
@@ -13,7 +12,6 @@ plugins {
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
     maven(url = "https://jitpack.io/")
     maven(url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
@@ -28,34 +26,39 @@ dependencies {
     }
 
     implementation("net.guizhanss:guizhanlib-all:2.0.0-SNAPSHOT")
-    implementation("org.bstats:bstats-bukkit:3.0.2")
+    implementation("org.bstats:bstats-bukkit:3.1.0")
     implementation("com.google.code.findbugs:jsr305:3.0.2")
     compileOnlyAndTestImplementation("io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT")
-    compileOnly("com.github.Slimefun:Slimefun4:RC-37")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.3")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.3")
+    compileOnlyAndTestImplementation("com.github.Slimefun:Slimefun4:RC-37")
+
+    // mockbukkit
+    testImplementation("com.github.MockBukkit:MockBukkit:c7cc678834")
+    // junit
+    testImplementation(platform("org.junit:junit-bom:5.11.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
-//    withJavadocsJar()
-//    withSourcesJar()
+    withJavadocJar()
+    withSourcesJar()
 }
 
-tasks.withType<JavaCompile>() {
+tasks.compileJava {
     options.encoding = "UTF-8"
 }
 
-tasks.withType<Javadoc>() {
+tasks.javadoc {
     options.encoding = "UTF-8"
 }
 
-tasks.withType<Test> {
+tasks.test {
     useJUnitPlatform()
 }
 
-tasks.withType<ShadowJar> {
+tasks.shadowJar {
     archiveAppendix = ""
 }
 
@@ -64,8 +67,8 @@ publishing {
         create<MavenPublication>("maven") {
             project.shadow.component(this)
 
-//            artifact(tasks.named("javadocJar").get())
-//            artifact(tasks.named("sourcesJar").get())
+            artifact(tasks.named("javadocJar").get())
+            artifact(tasks.named("sourcesJar").get())
 
             groupId = rootProject.group as String
             artifactId = project.name
@@ -127,9 +130,9 @@ signing {
 
 bukkit {
     main = "net.guizhanss.minecraft.guizhanlib.GuizhanLib"
-    apiVersion = "1.16"
+    apiVersion = "1.18"
     authors = listOf("ybw0014")
-    description = "A library plugin for Slimefun addon development"
+    description = "A library plugin for Simplified Chinese Slimefun addons."
     website = "https://github.com/ybw0014/guizhanlibplugin"
     depend = listOf("Slimefun")
 }
