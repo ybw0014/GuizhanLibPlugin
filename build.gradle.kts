@@ -1,4 +1,5 @@
 group = "net.guizhanss"
+val mainPackage = "net.guizhanss.minecraft.guizhanlib"
 
 plugins {
     java
@@ -28,6 +29,8 @@ dependencies {
     implementation("net.guizhanss:guizhanlib-all:2.0.0-SNAPSHOT")
     implementation("org.bstats:bstats-bukkit:3.1.0")
     implementation("com.google.code.findbugs:jsr305:3.0.2")
+    implementation("com.github.houbb:pinyin:0.4.0")
+
     compileOnlyAndTestImplementation("io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT")
     compileOnlyAndTestImplementation("com.github.Slimefun:Slimefun4:RC-37")
 
@@ -59,6 +62,14 @@ tasks.test {
 }
 
 tasks.shadowJar {
+    fun doRelocate(from: String, to: String? = null) {
+        val last = to ?: from.split(".").last()
+        relocate(from, "$mainPackage.libs.$last")
+    }
+
+    doRelocate("io.papermc.lib", "paperlib")
+    doRelocate("com.github.houbb")
+    doRelocate("org.bstats")
     archiveAppendix = ""
 }
 
@@ -75,14 +86,14 @@ publishing {
             version = rootProject.version as String
 
             pom {
-                name.set("guizhanlibplugin")
+                name.set("GuizhanLibPlugin")
                 description.set("A library plugin for Slimefun addon development.")
-                url.set("https://github.com/ybw0014/guizhanlibplugin")
+                url.set("https://github.com/ybw0014/GuizhanLibPlugin")
 
                 licenses {
                     license {
                         name.set("GPL-3.0 license")
-                        url.set("https://github.com/ybw0014/guizhanlib/blob/master/LICENSE")
+                        url.set("https://github.com/ybw0014/GuizhanLibPlugin/blob/master/LICENSE")
                         distribution.set("repo")
                     }
                 }
@@ -95,8 +106,8 @@ publishing {
                 }
 
                 scm {
-                    connection.set("scm:git:git://github.com/ybw0014/guizhanlibplugin.git")
-                    developerConnection.set("scm:git:ssh://github.com:ybw0014/guizhanlibplugin.git")
+                    connection.set("scm:git:git://github.com/ybw0014/GuizhanLibPlugin.git")
+                    developerConnection.set("scm:git:ssh://github.com:ybw0014/GuizhanLibPlugin.git")
                     url.set("https://github.com/ybw0014/guizhanlibplugin/tree/master")
                 }
             }
@@ -129,10 +140,10 @@ signing {
 }
 
 bukkit {
-    main = "net.guizhanss.minecraft.guizhanlib.GuizhanLib"
+    main = "$mainPackage.GuizhanLib"
     apiVersion = "1.18"
     authors = listOf("ybw0014")
     description = "A library plugin for Simplified Chinese Slimefun addons."
-    website = "https://github.com/ybw0014/guizhanlibplugin"
+    website = "https://github.com/ybw0014/GuizhanLibPlugin"
     depend = listOf("Slimefun")
 }

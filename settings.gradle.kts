@@ -1,1 +1,1 @@
-rootProject.name = "guizhanlibplugin"
+rootProject.name = "GuizhanLibPlugin"
