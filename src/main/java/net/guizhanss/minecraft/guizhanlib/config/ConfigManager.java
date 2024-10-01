@@ -1,5 +1,6 @@
 package net.guizhanss.minecraft.guizhanlib.config;
 
+import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import lombok.Getter;
 import net.guizhanss.guizhanlib.slimefun.addon.AddonConfig;
 import net.guizhanss.minecraft.guizhanlib.GuizhanLib;
@@ -14,6 +15,8 @@ import javax.annotation.Nonnull;
 public final class ConfigManager {
 
     private final AddonConfig config;
+    @Getter
+    private final Config updaterConfig;
 
     @Getter
     private final boolean debugEnabled;
@@ -26,6 +29,7 @@ public final class ConfigManager {
 
     public ConfigManager(@Nonnull GuizhanLib plugin) {
         config = new AddonConfig(plugin, "config.yml");
+        updaterConfig = new Config(plugin, "updater.yml");
 
         debugEnabled = config.getBoolean("debug", false);
         autoUpdateEnabled = config.getBoolean("auto-update", true);

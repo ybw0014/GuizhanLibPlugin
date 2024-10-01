@@ -15,6 +15,7 @@ import java.io.File;
  */
 @UtilityClass
 public final class GuizhanUpdater {
+
     /**
      * Call the corresponding updater.
      *

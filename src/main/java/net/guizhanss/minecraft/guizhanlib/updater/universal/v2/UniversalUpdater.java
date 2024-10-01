@@ -16,6 +16,7 @@ import java.util.List;
  */
 @Getter
 public final class UniversalUpdater {
+
     private final List<UpdaterRecord> records = new ArrayList<>();
 
     public void add(Plugin plugin, File file, String githubUser, String githubRepo, String githubBranch,

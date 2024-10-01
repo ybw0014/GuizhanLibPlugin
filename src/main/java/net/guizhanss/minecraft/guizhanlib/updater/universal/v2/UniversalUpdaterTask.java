@@ -57,6 +57,8 @@ class UniversalUpdaterTask implements Runnable {
             log(Level.INFO, "task.running", i + 1, r.plugin().getName());
             runTask(r);
         }
+
+        GuizhanLib.getConfigManager().getUpdaterConfig().save();
     }
 
     private boolean loadLanguage() {
@@ -94,6 +96,13 @@ class UniversalUpdaterTask implements Runnable {
     private void runTask(@Nonnull UpdaterRecord record) {
         // check if the plugin is disabled
         if (!record.plugin().isEnabled()) {
+            log(Level.INFO, "task.disabled", record.plugin().getName());
+            return;
+        }
+
+        // check if the updater is disabled
+        boolean isGlobalEnabled = GuizhanLib.getConfigManager().getUpdaterConfig().getOrSetDefault("v2." + record.getConfigPath(), true);
+        if (!isGlobalEnabled) {
             log(Level.INFO, "task.disabled", record.plugin().getName());
             return;
         }
