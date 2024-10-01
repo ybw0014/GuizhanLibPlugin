@@ -9,7 +9,6 @@ plugins {
     id("io.freefair.lombok") version "8.7.1"
     id("com.gradleup.shadow") version "8.3.0"
     id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
-    id("co.uzzu.dotenv.gradle") version "4.0.0"
 }
 
 repositories {
@@ -29,7 +28,7 @@ dependencies {
     implementation("net.guizhanss:guizhanlib-all:2.0.0-SNAPSHOT")
     implementation("org.bstats:bstats-bukkit:3.1.0")
     implementation("com.google.code.findbugs:jsr305:3.0.2")
-    implementation("com.github.houbb:pinyin:0.4.0")
+    api("com.github.houbb:pinyin:0.4.0")
 
     compileOnlyAndTestImplementation("io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT")
     compileOnlyAndTestImplementation("com.github.Slimefun:Slimefun4:RC-37")
@@ -119,16 +118,16 @@ publishing {
             name = "CentralRelease"
             url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
             credentials {
-                username = env.OSSRH_USERNAME.orElse("")
-                password = env.OSSRH_PASSWORD.orElse("")
+                username = System.getProperty("OSSRH_USERNAME", "")
+                password = System.getProperty("OSSRH_PASSWORD", "")
             }
         }
         maven {
             name = "CentralSnapshot"
             url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
             credentials {
-                username = env.OSSRH_USERNAME.orElse("")
-                password = env.OSSRH_PASSWORD.orElse("")
+                username = System.getProperty("OSSRH_USERNAME", "")
+                password = System.getProperty("OSSRH_PASSWORD", "")
             }
         }
     }
