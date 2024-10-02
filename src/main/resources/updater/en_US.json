@@ -1,14 +1,15 @@
 {
-  "init": "Loaded language pack!",
-  "loading": "Initializing universal updater task...",
-  "loaded": "Found {0} updater tasks.",
-  "task.running": "Running task {0} ({1})...",
-  "task.disabled": "Task {0} plugin ({1}) is disabled...",
-  "task.failed": "Auto updater task ({0}) failed!",
-  "task.no-info": "Cannot fetch build info for {0}!",
-  "task.has-update": "There is an update available for {0}!",
-  "task.no-update": "{0} is up to date!",
-  "task.check-only": "The updater is set to check updates only, you will need to download the update manually.",
-  "task.downloading": "Downloading update for {0} ({1})...",
-  "task.downloaded": "Update downloaded for {0} ({1})! Restart server to apply changes."
+	"init": "Loaded language pack!",
+	"loading": "Initializing universal updater task...",
+	"loaded": "Found {0} updater tasks.",
+	"task.running": "Running task {0} ({1})...",
+	"task.global-disabled": "The updater is globally disabled!",
+	"task.disabled": "The task plugin {0} is disabled or the updater is disabled globally.",
+	"task.failed": "Auto updater task ({0}) failed!",
+	"task.no-info": "Cannot fetch build info for {0}!",
+	"task.has-update": "There is an update available for {0}!",
+	"task.no-update": "{0} is up to date!",
+	"task.check-only": "The updater is set to check updates only, you will need to download the update manually.",
+	"task.downloading": "Downloading update for {0} ({1})...",
+	"task.downloaded": "Update downloaded for {0} ({1})! Restart server to apply changes."
 }

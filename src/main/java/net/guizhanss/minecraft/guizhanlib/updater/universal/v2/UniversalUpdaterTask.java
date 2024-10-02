@@ -46,6 +46,14 @@ class UniversalUpdaterTask implements Runnable {
             return;
         }
 
+        var config = GuizhanLib.getConfigManager().getUpdaterConfig();
+
+        // global enable check
+        if (!config.getOrSetDefault("enable", true)) {
+            log(Level.INFO, lang.get("task.global-disabled"));
+            return;
+        }
+
         // updater main
         final List<UpdaterRecord> records = updater.getRecords();
         log(Level.INFO, lang.get("loading"));
@@ -58,7 +66,7 @@ class UniversalUpdaterTask implements Runnable {
             runTask(r);
         }
 
-        GuizhanLib.getConfigManager().getUpdaterConfig().save();
+        config.save();
     }
 
     private boolean loadLanguage() {
