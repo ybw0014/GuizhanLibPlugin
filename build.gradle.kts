@@ -25,7 +25,7 @@ dependencies {
         testImplementation(dependencyNotation)
     }
 
-    implementation("net.guizhanss:guizhanlib-all:2.0.0-SNAPSHOT")
+    implementation("net.guizhanss:guizhanlib-all:2.0.0")
     implementation("org.bstats:bstats-bukkit:3.1.0")
     implementation("com.google.code.findbugs:jsr305:3.0.2")
     api("com.github.houbb:pinyin:0.4.0")
@@ -69,7 +69,7 @@ tasks.shadowJar {
     doRelocate("io.papermc.lib", "paperlib")
     doRelocate("com.github.houbb")
     doRelocate("org.bstats")
-    archiveAppendix = ""
+    archiveClassifier = ""
 }
 
 publishing {
