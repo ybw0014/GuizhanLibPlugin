@@ -1,14 +1,15 @@
 {
-  "init": "已加载语言包！",
-  "loading": "正在初始化通用更新任务...",
-  "loaded": "已找到 {0} 个更新任务。",
-  "task.running": "正在执行任务 {0}（{1}）...",
-  "task.disabled": "任务 {0} 插件 ({1}) 已禁用...",
-  "task.failed": "自动更新任务 ({0}) 失败！",
-  "task.no-info": "无法获取 {0} 的构建信息！",
-  "task.has-update": "{0} 有可用的新版本！",
-  "task.no-update": "{0} 已是最新版本！",
-  "task.check-only": "自动更新已设置为仅检测更新，你需要手动下载更新。",
-  "task.downloading": "正在下载更新 {0} ({1})...",
-  "task.downloaded": "已完成 {0} ({1}) 下载！重启服务器以应用更改。"
+	"init": "已加载语言包！",
+	"loading": "正在初始化通用更新任务...",
+	"loaded": "已找到 {0} 个更新任务。",
+	"task.running": "正在执行任务 {0}（{1}）...",
+	"task.global-disabled": "自动更新已全局关闭！",
+	"task.disabled": "任务插件 {0} 已禁用或自动更新被全局关闭！",
+	"task.failed": "自动更新任务 ({0}) 失败！",
+	"task.no-info": "无法获取 {0} 的构建信息！",
+	"task.has-update": "{0} 有可用的新版本！",
+	"task.no-update": "{0} 已是最新版本！",
+	"task.check-only": "自动更新已设置为仅检测更新，你需要手动下载更新。",
+	"task.downloading": "正在下载更新 {0} ({1})...",
+	"task.downloaded": "已完成 {0} ({1}) 下载！重启服务器以应用更改。"
 }
