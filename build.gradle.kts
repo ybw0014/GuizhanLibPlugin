@@ -35,7 +35,7 @@ dependencies {
     compileOnlyAndTestImplementation("com.github.Slimefun:Slimefun4:RC-37")
 
     // mockbukkit
-    testImplementation("com.github.MockBukkit:MockBukkit:c7cc678834")
+    testImplementation("com.github.MockBukkit:MockBukkit:3.130.2")
     // junit
     testImplementation(platform("org.junit:junit-bom:5.11.1"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")
