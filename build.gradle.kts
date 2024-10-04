@@ -46,11 +46,8 @@ java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
 
-    // no need to include these 2
-    if (!version.toString().startsWith("Build")) {
-        withJavadocJar()
-        withSourcesJar()
-    }
+    withJavadocJar()
+    withSourcesJar()
 }
 
 tasks.compileJava {
@@ -120,7 +117,10 @@ publishing {
 }
 
 signing {
-    sign(publishing.publications["maven"])
+    // no need to sign when building
+    if (!version.toString().startsWith("Build")) {
+        sign(publishing.publications["maven"])
+    }
 }
 
 nexusPublishing {
