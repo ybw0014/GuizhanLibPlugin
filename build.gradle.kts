@@ -6,8 +6,8 @@ plugins {
     `java-library`
     `maven-publish`
     signing
-    id("io.freefair.lombok") version "8.7.1"
-    id("com.gradleup.shadow") version "8.3.0"
+    id("io.freefair.lombok") version "8.10"
+    id("com.gradleup.shadow") version "8.3.3"
     id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
@@ -26,7 +26,7 @@ dependencies {
         testImplementation(dependencyNotation)
     }
 
-    implementation("net.guizhanss:guizhanlib-all:2.0.0")
+    implementation("net.guizhanss:guizhanlib-all:2.1.0")
     implementation("org.bstats:bstats-bukkit:3.1.0")
     implementation("com.google.code.findbugs:jsr305:3.0.2")
     api("com.github.houbb:pinyin:0.4.0")
@@ -37,7 +37,7 @@ dependencies {
     // mockbukkit
     testImplementation("com.github.MockBukkit:MockBukkit:c7cc678834")
     // junit
-    testImplementation(platform("org.junit:junit-bom:5.11.1"))
+    testImplementation(platform("org.junit:junit-bom:5.11.2"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
