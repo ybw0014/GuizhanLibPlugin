@@ -18,6 +18,7 @@ repositories {
     maven(url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven(url = "https://papermc.io/repo/repository/maven-public")
     maven(url = "https://s01.oss.sonatype.org/content/repositories/snapshots/")
+    maven(url = "https://s01.oss.sonatype.org/content/repositories/staging/")
 }
 
 dependencies {
