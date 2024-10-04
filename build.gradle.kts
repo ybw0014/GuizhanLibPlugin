@@ -45,8 +45,12 @@ dependencies {
 java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
-    withJavadocJar()
-    withSourcesJar()
+
+    // no need to include these 2
+    if (!version.toString().startsWith("Build")) {
+        withJavadocJar()
+        withSourcesJar()
+    }
 }
 
 tasks.compileJava {
