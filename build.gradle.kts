@@ -9,6 +9,7 @@ plugins {
     id("io.freefair.lombok") version "8.7.1"
     id("com.gradleup.shadow") version "8.3.0"
     id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
+    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
 
 repositories {
@@ -107,35 +108,24 @@ publishing {
                 scm {
                     connection.set("scm:git:git://github.com/ybw0014/GuizhanLibPlugin.git")
                     developerConnection.set("scm:git:ssh://github.com:ybw0014/GuizhanLibPlugin.git")
-                    url.set("https://github.com/ybw0014/guizhanlibplugin/tree/master")
+                    url.set("https://github.com/ybw0014/GuizhanLibPlugin/tree/master")
                 }
-            }
-        }
-    }
-
-    repositories {
-        maven {
-            name = "CentralRelease"
-            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                username = System.getProperty("OSSRH_USERNAME", "")
-                password = System.getProperty("OSSRH_PASSWORD", "")
-            }
-        }
-        maven {
-            name = "CentralSnapshot"
-            url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-            credentials {
-                username = System.getProperty("OSSRH_USERNAME", "")
-                password = System.getProperty("OSSRH_PASSWORD", "")
             }
         }
     }
 }
 
 signing {
-    useGpgCmd()
-    sign(configurations.runtimeElements.get())
+    sign(publishing.publications["maven"])
+}
+
+nexusPublishing {
+    repositories {
+        sonatype {
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+        }
+    }
 }
 
 bukkit {
