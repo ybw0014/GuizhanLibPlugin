@@ -7,6 +7,7 @@ import lombok.experimental.UtilityClass;
  */
 @Deprecated(since = "2.0.0", forRemoval = true)
 @UtilityClass
+@SuppressWarnings("unused")
 public final class ChatColors {
 
     public static final net.guizhanss.minecraft.guizhanlib.gugu.minecraft.ChatColors AQUA = net.guizhanss.minecraft.guizhanlib.gugu.minecraft.ChatColors.AQUA;
