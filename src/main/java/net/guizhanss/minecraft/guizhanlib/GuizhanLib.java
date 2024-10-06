@@ -60,8 +60,8 @@ public class GuizhanLib extends AbstractAddon {
         configManager = new ConfigManager(this);
 
         setupMinecraftLanguage();
+
         if (!isUnitTest) {
-            setupUpdater();
             setupMetrics();
             universalUpdater.start();
         }
@@ -78,21 +78,6 @@ public class GuizhanLib extends AbstractAddon {
         } catch (Exception ex) {
             if (configManager.isDebugEnabled()) {
                 getLogger().log(Level.SEVERE, ex, ex::getMessage);
-            }
-        }
-    }
-
-    private void setupUpdater() {
-        if (configManager.isDebugEnabled()) {
-            // enable debug messages in UpdaterTask
-            try {
-                Class<?> clazz = Class.forName("net.guizhanss.guizhanlib.updater.UpdaterTask");
-                Field field = clazz.getDeclaredField("debug");
-                field.setAccessible(true);
-                field.set(null, true);
-            } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException ex) {
-                getLogger().log(Level.SEVERE, ex, () -> "An error occurred while enabling debug messages in auto " +
-                    "updater");
             }
         }
     }
