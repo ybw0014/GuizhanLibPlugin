@@ -10,6 +10,7 @@ plugins {
     id("com.gradleup.shadow") version "8.3.3"
     id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
+    id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
 repositories {
@@ -141,3 +142,15 @@ bukkit {
     website = "https://github.com/ybw0014/GuizhanLibPlugin"
     depend = listOf("Slimefun")
 }
+
+tasks.runServer {
+    downloadPlugins {
+        // Slimefun
+        url("https://builds.guizhanss.com/api/download/SlimefunGuguProject/Slimefun4/master/latest")
+        // GuizhanCraft for testing convenient
+        url("https://builds.guizhanss.com/api/download/ybw0014/GuizhanCraft/master/latest")
+    }
+    jvmArgs("-Dcom.mojang.eula.agree=true")
+    minecraftVersion("1.20.6")
+}
+

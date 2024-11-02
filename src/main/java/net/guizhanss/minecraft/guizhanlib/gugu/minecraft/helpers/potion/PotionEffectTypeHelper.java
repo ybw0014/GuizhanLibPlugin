@@ -3,7 +3,7 @@ package net.guizhanss.minecraft.guizhanlib.gugu.minecraft.helpers.potion;
 import com.google.common.base.Preconditions;
 import lombok.experimental.UtilityClass;
 import net.guizhanss.guizhanlib.common.utils.StringUtil;
-import net.guizhanss.minecraft.guizhanlib.gugu.MinecraftLocalization;
+import net.guizhanss.minecraft.guizhanlib.gugu.localization.MinecraftLocalization;
 import net.guizhanss.minecraft.guizhanlib.utils.NamespacedKeyUtils;
 import org.bukkit.Registry;
 import org.bukkit.potion.PotionEffectType;

@@ -3,7 +3,7 @@ package net.guizhanss.minecraft.guizhanlib.gugu.minecraft.helpers.block;
 import com.google.common.base.Preconditions;
 import lombok.experimental.UtilityClass;
 import net.guizhanss.guizhanlib.common.utils.StringUtil;
-import net.guizhanss.minecraft.guizhanlib.gugu.MinecraftLocalization;
+import net.guizhanss.minecraft.guizhanlib.gugu.localization.MinecraftLocalization;
 import org.bukkit.block.Biome;
 
 import javax.annotation.Nonnull;

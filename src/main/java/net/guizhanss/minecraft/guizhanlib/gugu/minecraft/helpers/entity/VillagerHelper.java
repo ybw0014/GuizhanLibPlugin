@@ -3,7 +3,7 @@ package net.guizhanss.minecraft.guizhanlib.gugu.minecraft.helpers.entity;
 import com.google.common.base.Preconditions;
 import lombok.experimental.UtilityClass;
 import net.guizhanss.guizhanlib.common.utils.StringUtil;
-import net.guizhanss.minecraft.guizhanlib.gugu.MinecraftLocalization;
+import net.guizhanss.minecraft.guizhanlib.gugu.localization.MinecraftLocalization;
 import org.bukkit.entity.Villager;
 import org.bukkit.entity.Villager.Profession;
 import org.bukkit.entity.Villager.Type;
