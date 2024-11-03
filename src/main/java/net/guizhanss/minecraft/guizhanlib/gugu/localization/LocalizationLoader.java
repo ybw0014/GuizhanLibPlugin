@@ -6,7 +6,6 @@ import io.papermc.lib.PaperLib;
 import net.guizhanss.minecraft.guizhanlib.GuizhanLib;
 import net.guizhanss.minecraft.guizhanlib.utils.MinecraftVersionUtils;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,7 +14,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +28,9 @@ import java.util.logging.Logger;
 public final class LocalizationLoader {
 
     private static final Gson GSON = new Gson();
+    private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder()
+        .connectTimeout(Duration.ofSeconds(5))
+        .build();
 
     private final Map<String, String> lang = new HashMap<>();
     private final Logger logger;
@@ -61,8 +67,15 @@ public final class LocalizationLoader {
 
                 String remoteUrl = "https://cdn.jsdelivr.net/gh/InventivetalentDev/minecraft-assets@" + fullVersion + "/assets/minecraft/lang/zh_cn.json";
 
-                BufferedInputStream input = new BufferedInputStream(URI.create(remoteUrl).toURL().openStream());
-                saveToFile(input);
+                HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(remoteUrl))
+                    .GET()
+                    .timeout(Duration.ofSeconds(10))
+                    .build();
+
+                HttpResponse<InputStream> response = HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.ofInputStream());
+                InputStream inputStream = response.body();
+                saveToFile(inputStream);
 
                 logger.log(Level.INFO, "已下载当前版本的本地化文件");
             }
