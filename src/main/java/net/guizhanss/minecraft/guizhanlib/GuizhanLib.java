@@ -26,6 +26,7 @@ import java.util.logging.Level;
 public class GuizhanLib extends AbstractAddon {
 
     private final UniversalUpdater universalUpdater = new UniversalUpdater();
+
     private ConfigManager configManager;
     @Getter
     @Accessors(fluent = true)
@@ -35,6 +36,7 @@ public class GuizhanLib extends AbstractAddon {
         super("ybw0014", "GuizhanLibPlugin", "master", "auto-update");
 
         // a hacky way to check if mockbukkit is used
+        // TODO: change it when updating mockbukkit to v4
         isUnitTest = getClassLoader().getClass().getPackageName().startsWith("be.seeseemelk.mockbukkit");
     }
 
@@ -101,7 +103,7 @@ public class GuizhanLib extends AbstractAddon {
                 branch = "Insider";
             } else if (sfVersion.endsWith("-canary") || sfVersion.endsWith("-Beta")) {
                 branch = "Beta";
-            } else if (sfVersion.endsWith("-release")) {
+            } else if (sfVersion.endsWith("-release") || sfVersion.startsWith("Build")) {
                 branch = "Release";
             }
             outerMap.put(branch, innerMap);
