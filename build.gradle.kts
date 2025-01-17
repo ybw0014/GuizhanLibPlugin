@@ -15,11 +15,10 @@ plugins {
 
 repositories {
     mavenCentral()
-    maven(url = "https://jitpack.io/")
-    maven(url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
-    maven(url = "https://papermc.io/repo/repository/maven-public")
-    maven(url = "https://s01.oss.sonatype.org/content/repositories/snapshots/")
-    maven(url = "https://s01.oss.sonatype.org/content/repositories/staging/")
+    maven("https://jitpack.io/")
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+    maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://s01.oss.sonatype.org/content/groups/public/")
 }
 
 dependencies {
@@ -28,7 +27,7 @@ dependencies {
         testImplementation(dependencyNotation)
     }
 
-    implementation("net.guizhanss:guizhanlib-all:2.1.0")
+    implementation("net.guizhanss:guizhanlib-all:2.2.0")
     implementation("org.bstats:bstats-bukkit:3.1.0")
     implementation("com.google.code.findbugs:jsr305:3.0.2")
     api("com.github.houbb:pinyin:0.4.0")
@@ -37,7 +36,7 @@ dependencies {
     compileOnlyAndTestImplementation("com.github.Slimefun:Slimefun4:RC-37")
 
     // mockbukkit
-    testImplementation("com.github.MockBukkit:MockBukkit:c7cc678834")
+    testImplementation("com.github.MockBukkit:MockBukkit:v1.20-SNAPSHOT")
     // junit
     testImplementation(platform("org.junit:junit-bom:5.11.4"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")
@@ -45,9 +44,9 @@ dependencies {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
-
+    disableAutoTargetJvm()
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
     withJavadocJar()
     withSourcesJar()
 }
@@ -153,4 +152,3 @@ tasks.runServer {
     jvmArgs("-Dcom.mojang.eula.agree=true")
     minecraftVersion("1.20.6")
 }
-
