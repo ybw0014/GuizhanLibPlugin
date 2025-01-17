@@ -25,6 +25,11 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * 本地化文件加载器
+ *
+ * @author ybw0014
+ */
 public final class LocalizationLoader {
 
     private static final Gson GSON = new Gson();
