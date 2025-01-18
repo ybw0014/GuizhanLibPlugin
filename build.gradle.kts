@@ -27,13 +27,13 @@ dependencies {
         testImplementation(dependencyNotation)
     }
 
-    implementation("net.guizhanss:guizhanlib-all:2.2.0")
+    implementation(files("lib/guizhanlib.jar"))
     implementation("org.bstats:bstats-bukkit:3.1.0")
     implementation("com.google.code.findbugs:jsr305:3.0.2")
     api("com.github.houbb:pinyin:0.4.0")
 
     compileOnlyAndTestImplementation("io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT")
-    compileOnlyAndTestImplementation("com.github.Slimefun:Slimefun4:RC-37")
+    compileOnlyAndTestImplementation(files("lib/slimefun.jar"))
 
     // mockbukkit
     testImplementation("com.github.MockBukkit:MockBukkit:v1.20-SNAPSHOT")
@@ -140,6 +140,7 @@ bukkit {
     description = "A library plugin for Simplified Chinese Slimefun addons."
     website = "https://github.com/ybw0014/GuizhanLibPlugin"
     depend = listOf("Slimefun")
+    foliaSupported = true
 }
 
 tasks.runServer {
