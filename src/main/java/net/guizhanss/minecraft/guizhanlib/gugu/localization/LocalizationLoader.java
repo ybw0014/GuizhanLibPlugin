@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import io.papermc.lib.PaperLib;
 import net.guizhanss.minecraft.guizhanlib.GuizhanLib;
-import net.guizhanss.minecraft.guizhanlib.utils.MinecraftVersionUtils;
+import org.bukkit.Bukkit;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -44,7 +44,7 @@ public final class LocalizationLoader {
 
     public LocalizationLoader() {
         logger = GuizhanLib.getInstance().getLogger();
-        fullVersion = MinecraftVersionUtils.getFullVersion();
+        fullVersion = Bukkit.getServer().getMinecraftVersion();
 
         // create minecraft-lang folder if not exists
         File langFolder = new File(GuizhanLib.getInstance().getDataFolder(), "minecraft-lang");
@@ -66,16 +66,16 @@ public final class LocalizationLoader {
         logger.log(Level.INFO, "开始加载 Minecraft 本地化文件");
         logger.log(Level.INFO, "当前版本: " + fullVersion);
 
+        final String remoteUrl = "https://cdn.jsdelivr.net/gh/InventivetalentDev/minecraft-assets@" + fullVersion + "/assets/minecraft/lang/zh_cn.json";
+
         try {
             if (!localeFile.exists()) {
-                logger.log(Level.INFO, "当前版本的本地化文件不存在，正在尝试下载");
-
-                String remoteUrl = "https://cdn.jsdelivr.net/gh/InventivetalentDev/minecraft-assets@" + fullVersion + "/assets/minecraft/lang/zh_cn.json";
+                logger.log(Level.INFO, "当前版本的本地化文件不存在，正在尝试下载（15秒未完成下载则超时）");
 
                 HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(remoteUrl))
                     .GET()
-                    .timeout(Duration.ofSeconds(10))
+                    .timeout(Duration.ofSeconds(15))
                     .build();
 
                 HttpResponse<InputStream> response = HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.ofInputStream());
