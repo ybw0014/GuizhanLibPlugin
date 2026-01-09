@@ -8,7 +8,7 @@ plugins {
     signing
     id("io.freefair.lombok") version "8.13.1"
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
-    id("com.gradleup.shadow") version "9.3.0"
+    id("com.gradleup.shadow") version "9.3.1"
     id("de.eldoria.plugin-yml.bukkit") version "0.8.0"
     id("xyz.jpenilla.run-paper") version "2.3.1"
 }
