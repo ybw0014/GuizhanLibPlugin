@@ -2,7 +2,6 @@ package net.guizhanss.minecraft.guizhanlib.gugu.localization;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import io.papermc.lib.PaperLib;
 import net.guizhanss.minecraft.guizhanlib.GuizhanLib;
 import org.bukkit.Bukkit;
 
@@ -66,7 +65,7 @@ public final class LocalizationLoader {
         logger.log(Level.INFO, "开始加载 Minecraft 本地化文件");
         logger.log(Level.INFO, "当前版本: " + fullVersion);
 
-        final String remoteUrl = "https://cdn.jsdelivr.net/gh/InventivetalentDev/minecraft-assets@" + fullVersion + "/assets/minecraft/lang/zh_cn.json";
+        final String remoteUrl = "https://cdn.jsdelivr.net/gh/InventivetalentDev/minecraft-asset@" + fullVersion + "/assets/minecraft/lang/zh_cn.json";
 
         try {
             if (!localeFile.exists()) {
@@ -86,6 +85,9 @@ public final class LocalizationLoader {
             }
         } catch (Exception e) {
             logger.log(Level.SEVERE, "加载 Minecraft 本地化资源时发生错误，尝试备用方案", e);
+            logger.log(Level.INFO, "你可以手动下载本地化文件并放置到指定位置，以供插件下次加载时直接使用。");
+            logger.log(Level.INFO, "下载链接: " + remoteUrl);
+            logger.log(Level.INFO, "放置位置: " + localeFile.getAbsolutePath());
             prepareBackupFile();
         }
     }
@@ -93,23 +95,52 @@ public final class LocalizationLoader {
     private void prepareBackupFile() {
         logger.log(Level.INFO, "开始加载本地备用 Minecraft 本地化文件（可能不是当前版本最新）");
         try {
-            int mcVersion = PaperLib.getMinecraftVersion();
+            final String[] versionParts = fullVersion.split("\\.");
+            int majorVersion = Integer.parseInt(versionParts[0]);
+            int minorVersion = versionParts.length > 1 ? Integer.parseInt(versionParts[1]) : 0;
+
             InputStream input;
-            while (mcVersion >= 18) {
-                logger.log(Level.INFO, "尝试寻找 1." + mcVersion);
-                final String filename = "/minecraft-lang/1." + mcVersion + "/zh_cn.json";
-                input = GuizhanLib.getInstance().getClass().getResourceAsStream(filename);
-                if (input != null) {
-                    logger.log(Level.INFO, "正在加载 1." + mcVersion);
+            String loadedVersion = null;
 
-                    saveToFile(input);
+            // 年份版本
+            if (majorVersion >= 26) {
+                int yearVersion = majorVersion;
+                while (yearVersion >= 26) {
+                    String versionToTry = yearVersion + ".1";
+                    final String filename = "/minecraft-lang/" + versionToTry + "/zh_cn.json";
+                    input = GuizhanLib.getInstance().getClass().getResourceAsStream(filename);
+                    if (input != null) {
+                        saveToFile(input);
+                        loadedVersion = versionToTry;
+                        break;
+                    }
+                    yearVersion--;
+                }
 
-                    logger.log(Level.INFO, "已加载 1." + mcVersion);
-                    break;
-                } else {
-                    logger.log(Level.INFO, "1." + mcVersion + " 的本地化文件缺失，正在尝试加载上一个版本");
+                if (loadedVersion == null) {
+                    minorVersion = 21;
+                }
+            }
+
+            // 旧格式版本 (1.x)
+            if (loadedVersion == null) {
+                int mcVersion = (majorVersion == 1) ? minorVersion : 21;
+                while (mcVersion >= 18) {
+                    final String filename = "/minecraft-lang/1." + mcVersion + "/zh_cn.json";
+                    input = GuizhanLib.getInstance().getClass().getResourceAsStream(filename);
+                    if (input != null) {
+                        saveToFile(input);
+                        loadedVersion = "1." + mcVersion;
+                        break;
+                    }
                     mcVersion--;
                 }
+            }
+
+            if (loadedVersion != null) {
+                logger.log(Level.INFO, "已加载备用本地化文件: " + loadedVersion);
+            } else {
+                logger.log(Level.WARNING, "未找到可用的备用本地化文件");
             }
         } catch (Exception e) {
             logger.log(Level.SEVERE, "加载本地备用 Minecraft 本地化资源失败", e);
