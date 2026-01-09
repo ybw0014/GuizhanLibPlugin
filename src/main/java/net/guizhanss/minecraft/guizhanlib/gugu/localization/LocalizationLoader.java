@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
@@ -48,7 +49,10 @@ public final class LocalizationLoader {
         // create minecraft-lang folder if not exists
         File langFolder = new File(GuizhanLib.getInstance().getDataFolder(), "minecraft-lang");
         if (!langFolder.exists()) {
-            langFolder.mkdirs();
+            boolean created = langFolder.mkdirs();
+            if (!created && !langFolder.exists()) {
+                logger.log(Level.WARNING, () -> "无法创建目录: " + langFolder.getAbsolutePath());
+            }
         }
 
         localeFile = new File(GuizhanLib.getInstance().getDataFolder(), "minecraft-lang/" + fullVersion + ".json");
@@ -62,14 +66,14 @@ public final class LocalizationLoader {
     }
 
     private void prepareFile() {
-        logger.log(Level.INFO, "开始加载 Minecraft 本地化文件");
-        logger.log(Level.INFO, "当前版本: " + fullVersion);
+        logger.log(Level.INFO, () -> "开始加载 Minecraft 本地化文件");
+        logger.log(Level.INFO, () -> "当前版本: " + fullVersion);
 
-        final String remoteUrl = "https://cdn.jsdelivr.net/gh/InventivetalentDev/minecraft-asset@" + fullVersion + "/assets/minecraft/lang/zh_cn.json";
+        final String remoteUrl = "https://cdn.jsdelivr.net/gh/InventivetalentDev/minecraft-assets@" + fullVersion + "/assets/minecraft/lang/zh_cn.json";
 
         try {
             if (!localeFile.exists()) {
-                logger.log(Level.INFO, "当前版本的本地化文件不存在，正在尝试下载（15秒未完成下载则超时）");
+                logger.log(Level.INFO, () -> "当前版本的本地化文件不存在，正在尝试下载（15秒未完成下载则超时）");
 
                 HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(remoteUrl))
@@ -78,16 +82,27 @@ public final class LocalizationLoader {
                     .build();
 
                 HttpResponse<InputStream> response = HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.ofInputStream());
-                InputStream inputStream = response.body();
-                saveToFile(inputStream);
 
-                logger.log(Level.INFO, "已下载当前版本的本地化文件");
+                int status = response.statusCode();
+                if (status >= 200 && status < 300) {
+                    try (InputStream inputStream = response.body()) {
+                        saveToFile(inputStream);
+                    }
+
+                    logger.log(Level.INFO, () -> "已下载当前版本的本地化文件");
+                } else {
+                    throw new RuntimeException("HTTP status " + status);
+                }
             }
+        } catch (InterruptedException ie) {
+            Thread.currentThread().interrupt();
+            logger.log(Level.SEVERE, "下载过程中线程被中断，尝试使用备用本地化文件", ie);
+            prepareBackupFile();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "加载 Minecraft 本地化资源时发生错误，尝试备用方案", e);
-            logger.log(Level.INFO, "你可以手动下载本地化文件并放置到指定位置，以供插件下次加载时直接使用。");
-            logger.log(Level.INFO, "下载链接: " + remoteUrl);
-            logger.log(Level.INFO, "放置位置: " + localeFile.getAbsolutePath());
+            logger.log(Level.INFO, () -> "你可以手动下载本地化文件并放置到指定位置，以供插件下次加载时直接使用。");
+            logger.log(Level.INFO, () -> "下载链接: " + remoteUrl);
+            logger.log(Level.INFO, () -> "放置位置: " + localeFile.getAbsolutePath());
             prepareBackupFile();
         }
     }
@@ -147,25 +162,32 @@ public final class LocalizationLoader {
         }
     }
 
-    private void saveToFile(InputStream inputStream) throws Exception {
-        FileOutputStream output = new FileOutputStream(localeFile);
-        byte[] data = new byte[1024];
-        int read;
-
-        while ((read = inputStream.read(data, 0, 1024)) != -1) {
-            output.write(data, 0, read);
+    private void saveToFile(InputStream inputStream) throws IOException {
+        // ensure parent folder exists
+        File parent = localeFile.getParentFile();
+        if (parent != null && !parent.exists()) {
+            boolean created = parent.mkdirs();
+            if (!created && !parent.exists()) {
+                logger.log(Level.WARNING, () -> "无法创建本地化文件父目录: " + parent.getAbsolutePath());
+            }
         }
 
-        inputStream.close();
-        output.close();
+        try (InputStream in = inputStream; FileOutputStream output = new FileOutputStream(localeFile)) {
+            byte[] data = new byte[1024];
+            int read;
+
+            while ((read = in.read(data, 0, data.length)) != -1) {
+                output.write(data, 0, read);
+            }
+            output.flush();
+        }
     }
 
     private void loadFile() {
-        try {
-            FileInputStream stream = new FileInputStream(localeFile);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
-                stream, StandardCharsets.UTF_8
-            ));
+        try (FileInputStream stream = new FileInputStream(localeFile);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(
+                 stream, StandardCharsets.UTF_8
+             ))) {
             // @formatter:off
             Type type = new TypeToken<Map<String, String>>() {}.getType();
             // @formatter:on
