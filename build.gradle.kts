@@ -38,7 +38,7 @@ dependencies {
     // mockbukkit
     testImplementation("com.github.MockBukkit:MockBukkit:v1.20-SNAPSHOT")
     // junit
-    testImplementation(platform("org.junit:junit-bom:5.12.1"))
+    testImplementation(platform("org.junit:junit-bom:5.14.2"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
